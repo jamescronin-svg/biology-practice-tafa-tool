@@ -19,8 +19,6 @@
       --border: #d9e2ec;
       --badge-bg: #e6f4ea;
       --badge-text: #137333;
-      --warn-bg: #fef7e0;
-      --warn-text: #b06000;
       --radius: 12px;
       --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
@@ -68,7 +66,6 @@
       padding: 14px;
     }
 
-    /* Navigation Tabs */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -106,7 +103,6 @@
       font-size: 1.2rem;
     }
 
-    /* Views */
     .view {
       display: none;
     }
@@ -115,7 +111,6 @@
       display: block;
     }
 
-    /* Cards & Controls */
     .card {
       background: var(--card);
       border-radius: var(--radius);
@@ -165,7 +160,6 @@
       display: block;
     }
 
-    /* Flowchart Step UI */
     .flow-header {
       display: flex;
       justify-content: space-between;
@@ -261,7 +255,6 @@
       color: var(--primary);
     }
 
-    /* Search & Filter */
     .search-bar {
       width: 100%;
       padding: 11px 14px;
@@ -294,7 +287,6 @@
       color: var(--text);
     }
 
-    /* Scenario Cards */
     .scen-header {
       display: flex;
       justify-content: space-between;
@@ -365,7 +357,6 @@
   </header>
 
   <main class="container">
-    <!-- VIEW 1: FLOWCHARTS -->
     <section id="view-flow" class="view active">
       <div id="practice-selector">
         <div class="card" style="padding: 12px 14px; margin-bottom: 12px;">
@@ -392,7 +383,6 @@
       </div>
     </section>
 
-    <!-- VIEW 2: ALL SCENARIOS -->
     <section id="view-scenarios" class="view">
       <input type="search" id="search-input" class="search-bar" placeholder="Search code, scenario, keyword (e.g. BDA, milkweed, 420)..." oninput="renderScenarios()" />
 
@@ -420,3 +410,14 @@
       <span>Flowcharts</span>
     </button>
     <button class="nav-btn" id="nav-scenarios" onclick="switchTab('scenarios')">
+      <span class="nav-icon">📋</span>
+      <span>FY26 Scenarios</span>
+    </button>
+  </nav>
+
+  <script src="data.js"></script>
+  <script>
+    let currentPractice = null;
+    let historyStack = [];
+
+    function initApp() {
