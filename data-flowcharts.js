@@ -261,7 +261,8 @@ var PRACTICES = {
           { label: "Low labor inputs (Automated or routine single-fill pumping)", next: "646_s6" },
           { label: "Medium labor inputs (Periodic re-pumping to offset evaporation/seepage)", next: "646_s4" },
           { label: "High labor inputs (Continuous multi-stage pumping & depth management)", next: "646_s5" }
-          ],
+          ]
+      },
               "646_s1": { type: "result", tag: "CPS 646 · Scenario 1", q: "Scenario 1: Gravity/Rainfall, Low Labor Inputs Required ($18.45/ac)", note: "Passive rainfall capture and stoplog retention with minimal seasonal adjustments." },
       "646_s2": { type: "result", tag: "CPS 646 · Scenario 2", q: "Scenario 2: Gravity/Rainfall, Medium Labor Inputs Required ($28.90/ac)", note: "Periodic stoplog adjustments to provide progressive water depths for shorebirds and waterfowl." },
       "646_s3": { type: "result", tag: "CPS 646 · Scenario 3", q: "Scenario 3: Gravity/Rainfall, High Labor Inputs Required ($42.10/ac)", note: "Intensive multi-basin gravity water manipulation and frequent depth monitoring." },
