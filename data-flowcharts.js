@@ -262,3 +262,122 @@ var PRACTICES = {
           { label: "Medium labor inputs (Periodic re-pumping to offset evaporation/seepage)", next: "646_s4" },
           { label: "High labor inputs (Continuous multi-stage pumping & depth management)", next: "646_s5" }
           ],
+              "646_s1": { type: "result", tag: "CPS 646 · Scenario 1", q: "Scenario 1: Gravity/Rainfall, Low Labor Inputs Required ($18.45/ac)", note: "Passive rainfall capture and stoplog retention with minimal seasonal adjustments." },
+      "646_s2": { type: "result", tag: "CPS 646 · Scenario 2", q: "Scenario 2: Gravity/Rainfall, Medium Labor Inputs Required ($28.90/ac)", note: "Periodic stoplog adjustments to provide progressive water depths for shorebirds and waterfowl." },
+      "646_s3": { type: "result", tag: "CPS 646 · Scenario 3", q: "Scenario 3: Gravity/Rainfall, High Labor Inputs Required ($42.10/ac)", note: "Intensive multi-basin gravity water manipulation and frequent depth monitoring." },
+      "646_s4": { type: "result", tag: "CPS 646 · Scenario 4", q: "Scenario 4: Pump Water, Medium Labor Inputs Required ($54.20/ac)", note: "Mechanically pumped seasonal flooding with periodic re-pumping to maintain target depth." },
+      "646_s5": { type: "result", tag: "CPS 646 · Scenario 5", q: "Scenario 5: Pump Water, High Labor Inputs Required ($76.80/ac)", note: "High-intensity mechanical pumping and frequent multi-stage water depth manipulation." },
+      "646_s6": { type: "result", tag: "CPS 646 · Scenario 6", q: "Scenario 6: Pump Water, Low Labor Inputs Required ($39.63/ac)", note: "Mechanically pumped seasonal water flooding with automated or routine low-labor level management." }
+    }
+  },
+  "647": {
+    code: "647",
+    name: "Early Successional Habitat Development-Management",
+    source: "CPS 647 & FY 2026 Scenarios",
+    rcSummary: "Terrestrial Habitat for Early Successional / Shrub-Scrub / Grassland Wildlife & Pollinators",
+    om: "Manage 1/3 to 1/5 of area annually on rotation; control noxious/invasive weeds; protect from wildfire and unmanaged livestock.",
+    supporting: "Prescribed Burning (338), Brush Management (314), Herbaceous Weed Treatment (315), Wildlife Habitat Planting (420), Fence (382).",
+    start: "647_q1",
+    nodes: {
+      "647_q1": {
+        tag: "CPS 647 · Step 1",
+        q: "What disturbance method is best suited to set back succession on this site?",
+        options: [
+          { label: "Light mechanical disturbance (Strip disking, light harrowing, or rotational mowing)", next: "647_s1" },
+          { label: "Chemical / selective herbicide suppression of sod-forming grasses", next: "647_s2" },
+          { label: "Heavy woody setback / brush cutting (Forest opening or shrub-scrub regeneration)", next: "647_s3" }
+        ]
+      },
+      "647_s1": { type: "result", tag: "CPS 647 · Scenario 1", q: "Scenario 1: Early Successional Habitat — Mechanical / Strip Disking ($58.40/ac)", note: "Rotational strip disking or mechanical soil disturbance to stimulate native annuals and forbs." },
+      "647_s2": { type: "result", tag: "CPS 647 · Scenario 2", q: "Scenario 2: Early Successional Habitat — Chemical Setback ($74.20/ac)", note: "Selective herbicide application to suppress sod-bound tall fescue/bermudagrass and release native seedbank." },
+      "647_s3": { type: "result", tag: "CPS 647 · Scenario 3", q: "Scenario 3: Early Successional Habitat — Woody / Brush Setback ($245.00/ac)", note: "Heavy mechanical mulching or cutting of encroaching woody stems to restore shrub-scrub habitat." }
+    }
+  },
+  "649": {
+    code: "649",
+    name: "Structures for Wildlife",
+    source: "CPS 649 (Mar 2024) & FY 2026 Scenarios",
+    rcSummary: "Terrestrial/Aquatic Shelter, Nesting Structures, Escarpment/Bat/Fish Habitat Structures",
+    om: "Inspect annually prior to breeding/nesting season; clean out nest boxes/platforms; repair or replace weathered structures.",
+    supporting: "Wildlife Habitat Planting (420), Wildlife Habitat Management (645), Fence (382), Streambank Protection (580).",
+    start: "649_q1",
+    nodes: {
+      "649_q1": {
+        tag: "CPS 649 · Step 1",
+        q: "What type of wildlife structure is needed to address the limiting habitat factor?",
+        options: [
+          { label: "Cavity Nest Box or Perch Pole (Bluebird, Wood Duck, Kestrel, Raptor)", next: "649_s1" },
+          { label: "Large Nesting Platform or Bat House (Osprey, Barn Owl, Colonial Bat Box)", next: "649_s2" },
+          { label: "Brush Pile, Downed Woody Structure, or Rock Hibernaculum", next: "649_s3" },
+          { label: "Wildlife Escape Ramp (Livestock watering tank/trough safety)", next: "649_s4" }
+        ]
+      },
+      "649_s1": { type: "result", tag: "CPS 649 · Scenario 1", q: "Scenario 1: Structures for Wildlife — Nest Box / Perch Pole ($88.50/ea)", note: "Standard wooden/composite cavity nest boxes with predator guards or raptor hunting perches." },
+      "649_s2": { type: "result", tag: "CPS 649 · Scenario 2", q: "Scenario 2: Structures for Wildlife — Elevated Platform / Bat Roost ($340.00/ea)", note: "Heavy-duty pole-mounted osprey/owl platform or multi-chambered solar-oriented bat house." },
+      "649_s3": { type: "result", tag: "CPS 649 · Scenario 3", q: "Scenario 3: Structures for Wildlife — Brush Pile / Rock Hibernaculum ($195.00/ea)", note: "Engineered brush pile or subterranean rock shelter for small mammals, quail, and herpetofauna." },
+      "649_s4": { type: "result", tag: "CPS 649 · Scenario 4", q: "Scenario 4: Structures for Wildlife — Wildlife Escape Ramp ($62.00/ea)", note: "Expanded metal or textured ramp installed in livestock troughs to prevent bird/bat drowning." }
+    }
+  },
+  "657": {
+    code: "657",
+    name: "Wetland Restoration",
+    source: "CPS 657 & FY 2026 Scenarios",
+    rcSummary: "Permanent or Long-Term Hydroperiod & Hydric Soil Function Restoration",
+    om: "Monitor levee/plug integrity, control invasive woody species, maintain water control structures and native emergent plant cover.",
+    supporting: "Wetland Wildlife Mgmt (644), Seasonal Water Mgmt (646), Structure for Water Control (587), Dike (356), Tree/Shrub Planting (612/420).",
+    start: "657_q1",
+    nodes: {
+      "657_q1": {
+        tag: "CPS 657 · Step 1",
+        q: "What primary hydrologic alteration drained or degraded the historic hydric soil site?",
+        options: [
+          { label: "Subsurface drainage tile (Tile break / block restoration)", next: "657_s1" },
+          { label: "Surface drainage ditch (Ditch plug / fill restoration)", next: "657_s2" },
+          { label: "Complex floodplain / embankment & water control structure restoration", next: "657_s3" }
+        ]
+      },
+      "657_s1": { type: "result", tag: "CPS 657 · Scenario 1", q: "Scenario 1: Wetland Restoration — Tile Break / Subsurface Block ($1,180.00/ac)", note: "Locating, excavating, and disabling subsurface drainage tile lines to restore natural saturation." },
+      "657_s2": { type: "result", tag: "CPS 657 · Scenario 2", q: "Scenario 2: Wetland Restoration — Ditch Plug / Surface Fill ($1,890.00/ac)", note: "Constructing compacted earthen ditch plugs and re-contouring surface drainage channels." },
+      "657_s3": { type: "result", tag: "CPS 657 · Scenario 3", q: "Scenario 3: Wetland Restoration — Embankment & Macro-Topography ($3,450.00/ac)", note: "Full hydrologic restoration involving low-head embankments, spillways, and native hydrophytic seeding." }
+    }
+  },
+  "658": {
+    code: "658",
+    name: "Wetland Creation",
+    source: "CPS 658 & FY 2026 Scenarios",
+    rcSummary: "Creating New Wetlands on Non-Hydric / Upland Sites",
+    om: "Monitor inflow/outflow stability, control invasive weeds during root establishment, inspect embankment and spillway integrity.",
+    supporting: "Wetland Restoration (657), Structure for Water Control (587), Wetland Wildlife Mgmt (644), Grassed Waterway (412).",
+    start: "658_q1",
+    nodes: {
+      "658_q1": {
+        tag: "CPS 658 · Step 1",
+        q: "Does the non-hydric site require an imported clay/bentonite liner to hold water, or are native subsoils sufficiently impermeable?",
+        options: [
+          { label: "Native subsoils hold water (Excavation & embankment only)", next: "658_s1" },
+          { label: "Permeable subsoils (Requires compacted clay/soil liner)", next: "658_s2" }
+        ]
+      },
+      "658_s1": { type: "result", tag: "CPS 658 · Scenario 1", q: "Scenario 1: Wetland Creation — Standard Excavation & Embankment ($3,920.00/ac)", note: "Creating shallow wetland basin (< 3 ft max depth) on non-hydric soils with impermeable subsoil." },
+      "658_s2": { type: "result", tag: "CPS 658 · Scenario 2", q: "Scenario 2: Wetland Creation — With Compacted Soil Liner ($6,450.00/ac)", note: "Wetland creation including imported/compacted clay blanket liner to prevent excessive seepage." }
+    }
+  },
+  "659": {
+    code: "659",
+    name: "Wetland Enhancement",
+    source: "CPS 659 & FY 2026 Scenarios",
+    rcSummary: "Enhancing Existing Function & Biotic/Hydrologic Diversity of Functioning Wetlands",
+    om: "Inspect water control structures, adjust seasonal inundation schedules, manage emergent/submerged vegetation structure.",
+    supporting: "Seasonal Water Management (646), Structure for Water Control (587), Wetland Wildlife Management (644), Herbaceous Weed Treatment (315).",
+    start: "659_q1",
+    nodes: {
+      "659_q1": {
+        tag: "CPS 659 · Step 1",
+        q: "What enhancement action is needed on this existing wetland?",
+        options: [
+          { label: "Hydrologic enhancement (Adding/upgrading water control structure or berm)", next: "659_s1" },
+          { label: "Topographic & vegetative enhancement (Pothole excavation & native hydrophytic planting)", next: "659_s2" }
+        ]
+      },
+      "659_s1": { type: "result", tag: "CPS 659 · Scenario 1", q: "Scenario 1: Wetland Enhancement — Hydrologic Control Upgrade ($1,640.00/ac)", note: "Modifying existing wetland hydrology to improve seasonal water depth diversity and flood duration." },
+
