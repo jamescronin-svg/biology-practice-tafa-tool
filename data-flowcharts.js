@@ -381,8 +381,7 @@ var PRACTICES = {
         ]
       },
       "659_s1": { type: "result", tag: "CPS 659 · Scenario 1", q: "Scenario 1: Wetland Enhancement — Hydrologic Control Upgrade ($1,640.00/ac)", note: "Modifying existing wetland hydrology to improve seasonal water depth diversity and flood duration." },
-            "659_s2": { type: "result", tag: "CPS 659 · Scenario 2", q: "Scenario 2: Wetland Enhancement — Topographic & Plant Diversity ($2,780.00/ac)", note: "Creating open-water potholes/islands in monotypic stands and establishing diverse native emergents." }
-         }
+      "659_s2": { type: "result", tag: "CPS 659 · Scenario 2", q: "Scenario 2: Wetland Enhancement — Topographic & Plant Diversity ($2,780.00/ac)", note: "Creating open-water potholes/islands in monotypic stands and establishing diverse native emergents." }
     }
   }
 };
