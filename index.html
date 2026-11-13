@@ -1,80 +1,422 @@
-"646_s6": { type: "result", tag: "CPS 646 · Scenario 6", q: "Scenario 6: Pump Water, Low Labor Inputs Required ($39.63/ac)", note: "Mechanically pumped seasonal water flooding with automated or routine low-labor level management." }
-}
-},
-"647": {
-code: "647",
-name: "Early Successional Habitat Development-Management",
-source: "CPS 647 & FY 2026 Scenarios",
-rcSummary: "Terrestrial Habitat for Early Successional / Shrub-Scrub / Grassland Wildlife & Pollinators",
-om: "Manage 1/3 to 1/5 of area annually on rotation; control noxious/invasive weeds; protect from wildfire and unmanaged livestock.",
-supporting: "Prescribed Burning (338), Brush Management (314), Herbaceous Weed Treatment (315), Wildlife Habitat Planting (420), Fence (382)."
-},
-"649": {
-code: "649",
-name: "Structures for Wildlife",
-source: "CPS 649 (Mar 2024) & FY 2026 Scenarios",
-rcSummary: "Terrestrial/Aquatic Shelter, Nesting Structures, Escarpment/Bat/Fish Habitat Structures",
-om: "Inspect annually prior to breeding/nesting season; clean out nest boxes/platforms; repair or replace weathered structures.",
-supporting: "Wildlife Habitat Planting (420), Wildlife Habitat Management (645), Fence (382), Streambank Protection (580)."
-},
-"657": {
-code: "657",
-name: "Wetland Restoration",
-source: "CPS 657 & FY 2026 Scenarios",
-rcSummary: "Permanent or Long-Term Hydroperiod & Hydric Soil Function Restoration",
-om: "Monitor levee/plug integrity, control invasive woody species, maintain water control structures and native emergent plant cover.",
-supporting: "Wetland Wildlife Mgmt (644), Seasonal Water Mgmt (646), Structure for Water Control (587), Dike (356), Tree/Shrub Planting (612/420)."
-},
-"658": {
-code: "658",
-name: "Wetland Creation",
-source: "CPS 658 & FY 2026 Scenarios",
-rcSummary: "Creating New Wetlands on Non-Hydric / Upland Sites",
-om: "Monitor inflow/outflow stability, control invasive weeds during root establishment, inspect embankment and spillway integrity.",
-supporting: "Wetland Restoration (657), Structure for Water Control (587), Wetland Wildlife Mgmt (644), Grassed Waterway (412)."
-},
-"659": {
-code: "659",
-name: "Wetland Enhancement",
-source: "CPS 659 & FY 2026 Scenarios",
-rcSummary: "Enhancing Existing Function & Biotic/Hydrologic Diversity of Functioning Wetlands",
-om: "Inspect water control structures, adjust seasonal inundation schedules, manage emergent/submerged vegetation structure.",
-supporting: "Seasonal Water Management (646), Structure for Water Control (587), Wetland Wildlife Management (644), Herbaceous Weed Treatment (315)."
-}
-};
-// =========================================================================
-// 2. COMPLETE 63 FY 2026 PAYMENT SCENARIOS DATASET
-// =========================================================================
-var SCENARIOS = [
-// CPS 390 (4 scenarios)
-{ id: "390_39", code: "390", name: "Riparian Herbaceous Cover — Grass", rate: "$1,026.38/ac", unit: "ac", cat: "water", perm: "perennial", tier: "standard", desc: "No-till or range drill adapted stiff-stemmed grasses for sediment trapping and filter strip performance.", capp: "00N", om: "Inspect 2x/yr; maintain >= 35 ft or 2.5x stream width.", req: "382, 472, 528A" },
-{ id: "390_40", code: "390", name: "Riparian Herbaceous Cover — Native Grass and Forbs", rate: "$1,026.38/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Diverse native grass and forb mix with overlapping bloom periods for pollinators and wildlife.", capp: "01N", om: "Mow or burn <= 1/3 annually outside nesting season.", req: "382, 528A, 315" },
-{ id: "390_41", code: "390", name: "Riparian Herbaceous Cover — Specialized Seed", rate: "$1,443.13/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "specialized", desc: "High-cost specialized native seed mix tailored to target Ecological Site Descriptions (ESDs).", capp: "02N", om: "Protect from grazing >= 2 yrs; weed suppression.", req: "382, 315" },
-{ id: "390_44", code: "390", name: "Riparian Herbaceous Cover — Plugging and Seeding", rate: "$7,038.68/ac", unit: "ac", cat: "erosion", perm: "perennial", tier: "intensive", desc: "Combined native seeding and live sprigging/plugging for high-velocity scour zones.", capp: "03N", om: "Inspect post-flood; repair bank scour.", req: "580, 410, 382" },
-// CPS 420 (14 scenarios)
-{ id: "420_192", code: "420", name: "Wildlife Habitat Planting — Seedlings (~1/4 ac)", rate: "$0.77/sq ft", unit: "sq ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Small-scale (~1/4 ac / 10,890 sq ft) establishment using containerized woody seedlings.", capp: "00N", om: "Weed control; seedling protection tubes.", req: "490, 484" },
-{ id: "420_193", code: "420", name: "Wildlife Habitat Planting — Specialized Habitat Req. on Cropland", rate: "$2,362.73/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "specialized", desc: "High-cost specialized native seed mix on active cropland; includes foregone crop income.", capp: "00N", om: "Establishment weed control; periodic burn/mow.", req: "315, 338" },
-{ id: "420_257", code: "420", name: "Wildlife Habitat Planting — Potted Plants or Shrubs (Spot 225 sq ft)", rate: "$3.35/sq ft", unit: "sq ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Spot-treating sod and hand-planting potted native forbs (e.g. milkweed) or shrubs.", capp: "01N", om: "Microirrigation / watering year 1.", req: "441, 484" },
-{ id: "420_271", code: "420", name: "Wildlife Habitat Planting — High Species Diversity on Cropland", rate: "$1,595.98/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Field-scale high-diversity native grasses/forbs on cropland; includes foregone crop income.", capp: "00N", om: "Mow/burn rotation outside nesting season.", req: "315, 338" },
-{ id: "420_272", code: "420", name: "Wildlife Habitat Planting — Specialized Seeding and Plugging (< 5 ac)", rate: "$8,514.32/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "intensive", desc: "Small acreage (< 5 ac) combining native seeding with live plugs or shrubs.", capp: "00N", om: "Intensive weed control; irrigation.", req: "315, 441" },
-{ id: "420_299", code: "420", name: "Wildlife Habitat Planting — High Species Diversity on Non-Cropland", rate: "$885.06/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Diverse native grass/forb seeding on fallow or non-cropland without foregone crop income.", capp: "00N", om: "Control invasive weeds; burn/mow rotation.", req: "315, 338" },
-{ id: "420_300", code: "420", name: "Wildlife Habitat Planting — Specialized Habitat Req. on Non-Cropland", rate: "$1,862.08/scen", unit: "scen", cat: "habitat", perm: "perennial", tier: "specialized", desc: "Specialized native habitat seed mix on fallow/non-cropland without foregone crop income.", capp: "00N", om: "Protect from livestock; burn/mow cycle.", req: "315, 382" },
-{ id: "420_301", code: "420", name: "Wildlife Habitat Planting — Low Species Diversity on Non-Cropland", rate: "$406.91/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Field-scale basic native seeding on fallow/non-cropland.", capp: "00N", om: "Mow to suppress annual weeds.", req: "315" },
-{ id: "420_302", code: "420", name: "Wildlife Habitat Planting — Low Species Diversity on Cropland", rate: "$1,012.70/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Field-scale cropland conversion using basic native mix; includes foregone crop income.", capp: "00N", om: "Post-establishment weed control.", req: "315" },
-{ id: "420_303", code: "420", name: "Wildlife Habitat Planting — Herbaceous Plugs (~1/4 ac)", rate: "$1.35/sq ft", unit: "sq ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Small-scale (~1/4 ac / 10,890 sq ft) establishment using herbaceous native plugs.", capp: "00N", om: "Weed mat / manual weeding.", req: "484, 315" },
-{ id: "420_crp_r", code: "420", name: "Wildlife Habitat Planting — CRP Re-enrollment Maintenance", rate: "CRP Rate", unit: "ac", cat: "habitat", perm: "perennial", tier: "crp", desc: "Maintain existing wildlife habitat planting per CRP contract.", capp: "00N-CRP-R", om: "Per CRP plan; disturb outside nesting season.", req: "382" },
-// CPS 422 (6 scenarios)
-{ id: "422_29", code: "422", name: "Hedgerow — Grasses for Poultry House Air Quality Mitigation", rate: "$3.23/ft", unit: "ft", cat: "air", perm: "perennial", tier: "standard", desc: "Tall warm-season grass screen opposite poultry exhaust fans to intercept dust, feathers, and odor.", capp: "02N", om: "Annual maintenance/mowing of grass screen.", req: "380" },
-{ id: "422_30", code: "422", name: "Hedgerow — Wildlife Hedgerow, High Labor (Rugged Terrain)", rate: "$3.32/ft", unit: "ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Linear woody wildlife corridor (>= 1 woody row) installed by hand on steep or rugged terrain.", capp: "00N", om: "Hand weeding; protective tubes.", req: "490, 382" },
-{ id: "422_31", code: "422", name: "Hedgerow — Wildlife Hedgerow, Low Labor (Flat Terrain)", rate: "$2.35/ft", unit: "ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Linear woody wildlife corridor (>= 1 woody row) installed via mechanical planter.", capp: "00N", om: "Mechanical/chemical weed suppression.", req: "490, 595" },
-{ id: "422_32", code: "422", name: "Hedgerow — Beetle Bank (IPM Beneficial Insects)", rate: "$1.92/ft", unit: "ft", cat: "habitat", perm: "perennial", tier: "specialized", desc: "Raised linear earth mound planted to bunchgrasses for overwintering predatory beetles.", capp: "01N", om: "Exclude pesticides per Agronomy Tech Note 9.", req: "595, 386" },
-{ id: "422_scr", code: "422", name: "Hedgerow — Woody / Tall Grass Drift & Odor Screen", rate: "$2.85/ft", unit: "ft", cat: "air", perm: "perennial", tier: "standard", desc: "50-65% optical porosity woody/tall grass screen for livestock odor or pesticide drift.", capp: "02N", om: "Trim/rejuvenate <= 1/3 length outside nesting season.", req: "380, 595" },
-// CPS 643 (14 scenarios)
-{ id: "643_5", code: "643", name: "Rare/Declining Community — Shallow Micro-Topography (Farm Equip.)", rate: "$680.00/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Shallow 2-6 in depressions and mounds using normal farm equipment.", capp: "00N", om: "Monitor plant colonization.", req: "315" },
-{ id: "643_6", code: "643", name: "Rare/Declining Community — Deep Micro-Topography (Heavy Dozer)", rate: "$1,450.00/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "intensive", desc: "Heavy dozer excavation (6-12 in) creating vernal depressions for rare wetland/savanna/prairie.", capp: "00N", om: "Control invasive species.", req: "315, 338" },
-{ id: "643_221", code: "643", name: "Rare/Declining Community — Beaver Dam Analogues (BDAs) / PALS", rate: "$4,120.00/ac", unit: "ac", cat: "water", perm: "perennial", tier: "specialized", desc: "Low-tech process-based restoration structures to aggrade incised channels and reconnect floodplains.", capp: "01N", om: "Inspect post-high flows; repair post structures.", req: "395, 410, 580" },
-{ id: "643_226", code: "643", name: "Rare/Declining Community — Rock Structure (Zuni Bowls / One-Rock Dams)", rate: "$2,890.00/ea", unit: "ea", cat: "erosion", perm: "perennial", tier: "standard", desc: "Hand- or machine-placed rock structures to arrest head-cuts in intermittent channels.", capp: "01N", om: "Inspect rock stability annually.", req: "410, 580" },
-{ id: "643_247", code: "643", name: "Rare/Declining Community — Oyster Reef Bagged Dredging, Spat on Shell", rate: "$12,400.00/ac", unit: "ac", cat: "habitat", perm: "subtidal", tier: "intensive", desc: "Bagged cultch shell with spat on shell; pair with Scen. 373 (Yr 1), 394 (Yr 2), 415 (Yr 3) monitoring.", capp: "02N", om: "Mandatory Yr 1-3 subtidal monitoring (Scen 373/394/415).", req: "373, 394, 415" },
-{ id: "643_289", code: "643", name: "Rare/Declining Community — Oyster Reef Barge Crane (~100 tons shell)", rate: "$18,500.00/ac", unit: "ac", cat: "habitat", perm: "subtidal", tier: "intensive", desc: "Heavy barge crane oyster reef placement; pair with monitoring Scen. 373, 394, 415.", capp: "02N", om: "Mandatory Yr 1-3 subtidal monitoring.", req: "373, 394, 415" },
-{ id: "643_310", code: "643", name: "Rare/Declining Community — Oyster Restoration Spat on Shell Only", rate: "$9,800.00/ac", unit: "ac", cat: "habitat", perm: "subtidal", tier: "specialized" }
-]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#1b4332" />
+  <title>NRCS Practice Flowchart & FY26 Scenarios</title>
+  <style>
+    :root {
+      --primary: #1b4332;
+      --primary-light: #2d6a4f;
+      --accent: #40916c;
+      --accent-soft: #d8f3dc;
+      --bg: #f4f6f5;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #52606d;
+      --border: #d9e2ec;
+      --badge-bg: #e6f4ea;
+      --badge-text: #137333;
+      --warn-bg: #fef7e0;
+      --warn-text: #b06000;
+      --radius: 12px;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding-bottom: 76px;
+    }
+
+    header {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 16px 16px 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    header p {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      color: #b7e4c7;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    /* Navigation Tabs */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 100;
+      height: 62px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-btn {
+      flex: 1;
+      border: none;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .nav-btn.active {
+      color: var(--primary);
+      background: #f0fdf4;
+    }
+
+    .nav-icon {
+      font-size: 1.2rem;
+    }
+
+    /* Views */
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    /* Cards & Controls */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .practice-btn {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .practice-btn:active {
+      transform: scale(0.98);
+      border-color: var(--accent);
+    }
+
+    .practice-code {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .practice-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+    }
+
+    /* Flowchart Step UI */
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    .btn-sm {
+      background: #eef2f6;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-sm:active {
+      background: #d9e2ec;
+    }
+
+    .step-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .step-question {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+
+    .step-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      background: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: #ffffff;
+      border: 1.5px solid var(--accent);
+      color: var(--primary);
+      padding: 13px 14px;
+      border-radius: 10px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .option-btn:active {
+      background: var(--accent-soft);
+    }
+
+    .result-box {
+      background: #f0fdf4;
+      border: 1.5px solid #40916c;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 8px;
+    }
+
+    .meta-row {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.84rem;
+    }
+
+    .meta-label {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Search & Filter */
+    .search-bar {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 0.95rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    .search-bar:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .filter-select {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+
+    /* Scenario Cards */
+    .scen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .scen-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .rate-pill {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #eef2f6;
+      color: var(--muted);
+    }
+
+    .scen-desc {
+      font-size: 0.86rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .scen-details {
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>NRCS Conservation Field Guide</h1>
+    <p>Interactive Practice Flowcharts &amp; FY 2026 Scenarios</p>
+  </header>
+
+  <main class="container">
+    <!-- VIEW 1: FLOWCHARTS -->
+    <section id="view-flow" class="view active">
+      <div id="practice-selector">
+        <div class="card" style="padding: 12px 14px; margin-bottom: 12px;">
+          <strong style="font-size: 0.92rem;">Select a Conservation Practice Standard (CPS)</strong>
+          <div style="font-size: 0.8rem; color: var(--muted); margin-top: 2px;">
+            Step through field eligibility, site criteria, and scenario selection.
+          </div>
+        </div>
+        <div id="practice-grid" class="practice-grid"></div>
+      </div>
+
+      <div id="flowchart-runner" style="display: none;">
+        <div class="flow-header">
+          <button class="btn-sm" onclick="exitFlowchart()">← All Practices</button>
+          <div>
+            <button class="btn-sm" id="btn-back" onclick="stepBack()">Undo</button>
+            <button class="btn-sm" onclick="restartFlowchart()">Restart</button>
+          </div>
+        </div>
+
+        <div id="flow-card" class="card"></div>
+
+        <div id="practice-ref-card" class="card"></div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: ALL SCENARIOS -->
+    <section id="view-scenarios" class="view">
+      <input type="search" id="search-input" class="search-bar" placeholder="Search code, scenario, keyword (e.g. BDA, milkweed, 420)..." oninput="renderScenarios()" />
+
+      <div class="filter-row">
+        <select id="filter-code" class="filter-select" onchange="renderScenarios()">
+          <option value="ALL">All CPS Codes</option>
+        </select>
+        <select id="filter-cat" class="filter-select" onchange="renderScenarios()">
+          <option value="ALL">All Resource Categories</option>
+          <option value="habitat">Wildlife / Habitat</option>
+          <option value="water">Water Quality / Hydrology</option>
+          <option value="erosion">Erosion / Stabilization</option>
+          <option value="air">Air Quality / Drift</option>
+        </select>
+      </div>
+
+      <div id="scenario-count" style="font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; font-weight: 600;"></div>
+      <div id="scenario-list"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" id="nav-flow" onclick="switchTab('flow')">
+      <span class="nav-icon">🔀</span>
+      <span>Flowcharts</span>
+    </button>
+    <button class="nav-btn" id="nav-scenarios" onclick="switchTab('scenarios')">
