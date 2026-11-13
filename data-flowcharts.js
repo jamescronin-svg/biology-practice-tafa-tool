@@ -261,3 +261,4 @@ var PRACTICES = {
           { label: "Low labor inputs (Automated or routine single-fill pumping)", next: "646_s6" },
           { label: "Medium labor inputs (Periodic re-pumping to offset evaporation/seepage)", next: "646_s4" },
           { label: "High labor inputs (Continuous multi-stage pumping & depth management)", next: "646_s5" }
+          ],
