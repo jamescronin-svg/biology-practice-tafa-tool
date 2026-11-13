@@ -1,0 +1,80 @@
+"646_s6": { type: "result", tag: "CPS 646 · Scenario 6", q: "Scenario 6: Pump Water, Low Labor Inputs Required ($39.63/ac)", note: "Mechanically pumped seasonal water flooding with automated or routine low-labor level management." }
+}
+},
+"647": {
+code: "647",
+name: "Early Successional Habitat Development-Management",
+source: "CPS 647 & FY 2026 Scenarios",
+rcSummary: "Terrestrial Habitat for Early Successional / Shrub-Scrub / Grassland Wildlife & Pollinators",
+om: "Manage 1/3 to 1/5 of area annually on rotation; control noxious/invasive weeds; protect from wildfire and unmanaged livestock.",
+supporting: "Prescribed Burning (338), Brush Management (314), Herbaceous Weed Treatment (315), Wildlife Habitat Planting (420), Fence (382)."
+},
+"649": {
+code: "649",
+name: "Structures for Wildlife",
+source: "CPS 649 (Mar 2024) & FY 2026 Scenarios",
+rcSummary: "Terrestrial/Aquatic Shelter, Nesting Structures, Escarpment/Bat/Fish Habitat Structures",
+om: "Inspect annually prior to breeding/nesting season; clean out nest boxes/platforms; repair or replace weathered structures.",
+supporting: "Wildlife Habitat Planting (420), Wildlife Habitat Management (645), Fence (382), Streambank Protection (580)."
+},
+"657": {
+code: "657",
+name: "Wetland Restoration",
+source: "CPS 657 & FY 2026 Scenarios",
+rcSummary: "Permanent or Long-Term Hydroperiod & Hydric Soil Function Restoration",
+om: "Monitor levee/plug integrity, control invasive woody species, maintain water control structures and native emergent plant cover.",
+supporting: "Wetland Wildlife Mgmt (644), Seasonal Water Mgmt (646), Structure for Water Control (587), Dike (356), Tree/Shrub Planting (612/420)."
+},
+"658": {
+code: "658",
+name: "Wetland Creation",
+source: "CPS 658 & FY 2026 Scenarios",
+rcSummary: "Creating New Wetlands on Non-Hydric / Upland Sites",
+om: "Monitor inflow/outflow stability, control invasive weeds during root establishment, inspect embankment and spillway integrity.",
+supporting: "Wetland Restoration (657), Structure for Water Control (587), Wetland Wildlife Mgmt (644), Grassed Waterway (412)."
+},
+"659": {
+code: "659",
+name: "Wetland Enhancement",
+source: "CPS 659 & FY 2026 Scenarios",
+rcSummary: "Enhancing Existing Function & Biotic/Hydrologic Diversity of Functioning Wetlands",
+om: "Inspect water control structures, adjust seasonal inundation schedules, manage emergent/submerged vegetation structure.",
+supporting: "Seasonal Water Management (646), Structure for Water Control (587), Wetland Wildlife Management (644), Herbaceous Weed Treatment (315)."
+}
+};
+// =========================================================================
+// 2. COMPLETE 63 FY 2026 PAYMENT SCENARIOS DATASET
+// =========================================================================
+var SCENARIOS = [
+// CPS 390 (4 scenarios)
+{ id: "390_39", code: "390", name: "Riparian Herbaceous Cover — Grass", rate: "$1,026.38/ac", unit: "ac", cat: "water", perm: "perennial", tier: "standard", desc: "No-till or range drill adapted stiff-stemmed grasses for sediment trapping and filter strip performance.", capp: "00N", om: "Inspect 2x/yr; maintain >= 35 ft or 2.5x stream width.", req: "382, 472, 528A" },
+{ id: "390_40", code: "390", name: "Riparian Herbaceous Cover — Native Grass and Forbs", rate: "$1,026.38/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Diverse native grass and forb mix with overlapping bloom periods for pollinators and wildlife.", capp: "01N", om: "Mow or burn <= 1/3 annually outside nesting season.", req: "382, 528A, 315" },
+{ id: "390_41", code: "390", name: "Riparian Herbaceous Cover — Specialized Seed", rate: "$1,443.13/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "specialized", desc: "High-cost specialized native seed mix tailored to target Ecological Site Descriptions (ESDs).", capp: "02N", om: "Protect from grazing >= 2 yrs; weed suppression.", req: "382, 315" },
+{ id: "390_44", code: "390", name: "Riparian Herbaceous Cover — Plugging and Seeding", rate: "$7,038.68/ac", unit: "ac", cat: "erosion", perm: "perennial", tier: "intensive", desc: "Combined native seeding and live sprigging/plugging for high-velocity scour zones.", capp: "03N", om: "Inspect post-flood; repair bank scour.", req: "580, 410, 382" },
+// CPS 420 (14 scenarios)
+{ id: "420_192", code: "420", name: "Wildlife Habitat Planting — Seedlings (~1/4 ac)", rate: "$0.77/sq ft", unit: "sq ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Small-scale (~1/4 ac / 10,890 sq ft) establishment using containerized woody seedlings.", capp: "00N", om: "Weed control; seedling protection tubes.", req: "490, 484" },
+{ id: "420_193", code: "420", name: "Wildlife Habitat Planting — Specialized Habitat Req. on Cropland", rate: "$2,362.73/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "specialized", desc: "High-cost specialized native seed mix on active cropland; includes foregone crop income.", capp: "00N", om: "Establishment weed control; periodic burn/mow.", req: "315, 338" },
+{ id: "420_257", code: "420", name: "Wildlife Habitat Planting — Potted Plants or Shrubs (Spot 225 sq ft)", rate: "$3.35/sq ft", unit: "sq ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Spot-treating sod and hand-planting potted native forbs (e.g. milkweed) or shrubs.", capp: "01N", om: "Microirrigation / watering year 1.", req: "441, 484" },
+{ id: "420_271", code: "420", name: "Wildlife Habitat Planting — High Species Diversity on Cropland", rate: "$1,595.98/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Field-scale high-diversity native grasses/forbs on cropland; includes foregone crop income.", capp: "00N", om: "Mow/burn rotation outside nesting season.", req: "315, 338" },
+{ id: "420_272", code: "420", name: "Wildlife Habitat Planting — Specialized Seeding and Plugging (< 5 ac)", rate: "$8,514.32/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "intensive", desc: "Small acreage (< 5 ac) combining native seeding with live plugs or shrubs.", capp: "00N", om: "Intensive weed control; irrigation.", req: "315, 441" },
+{ id: "420_299", code: "420", name: "Wildlife Habitat Planting — High Species Diversity on Non-Cropland", rate: "$885.06/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Diverse native grass/forb seeding on fallow or non-cropland without foregone crop income.", capp: "00N", om: "Control invasive weeds; burn/mow rotation.", req: "315, 338" },
+{ id: "420_300", code: "420", name: "Wildlife Habitat Planting — Specialized Habitat Req. on Non-Cropland", rate: "$1,862.08/scen", unit: "scen", cat: "habitat", perm: "perennial", tier: "specialized", desc: "Specialized native habitat seed mix on fallow/non-cropland without foregone crop income.", capp: "00N", om: "Protect from livestock; burn/mow cycle.", req: "315, 382" },
+{ id: "420_301", code: "420", name: "Wildlife Habitat Planting — Low Species Diversity on Non-Cropland", rate: "$406.91/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Field-scale basic native seeding on fallow/non-cropland.", capp: "00N", om: "Mow to suppress annual weeds.", req: "315" },
+{ id: "420_302", code: "420", name: "Wildlife Habitat Planting — Low Species Diversity on Cropland", rate: "$1,012.70/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Field-scale cropland conversion using basic native mix; includes foregone crop income.", capp: "00N", om: "Post-establishment weed control.", req: "315" },
+{ id: "420_303", code: "420", name: "Wildlife Habitat Planting — Herbaceous Plugs (~1/4 ac)", rate: "$1.35/sq ft", unit: "sq ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Small-scale (~1/4 ac / 10,890 sq ft) establishment using herbaceous native plugs.", capp: "00N", om: "Weed mat / manual weeding.", req: "484, 315" },
+{ id: "420_crp_r", code: "420", name: "Wildlife Habitat Planting — CRP Re-enrollment Maintenance", rate: "CRP Rate", unit: "ac", cat: "habitat", perm: "perennial", tier: "crp", desc: "Maintain existing wildlife habitat planting per CRP contract.", capp: "00N-CRP-R", om: "Per CRP plan; disturb outside nesting season.", req: "382" },
+// CPS 422 (6 scenarios)
+{ id: "422_29", code: "422", name: "Hedgerow — Grasses for Poultry House Air Quality Mitigation", rate: "$3.23/ft", unit: "ft", cat: "air", perm: "perennial", tier: "standard", desc: "Tall warm-season grass screen opposite poultry exhaust fans to intercept dust, feathers, and odor.", capp: "02N", om: "Annual maintenance/mowing of grass screen.", req: "380" },
+{ id: "422_30", code: "422", name: "Hedgerow — Wildlife Hedgerow, High Labor (Rugged Terrain)", rate: "$3.32/ft", unit: "ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Linear woody wildlife corridor (>= 1 woody row) installed by hand on steep or rugged terrain.", capp: "00N", om: "Hand weeding; protective tubes.", req: "490, 382" },
+{ id: "422_31", code: "422", name: "Hedgerow — Wildlife Hedgerow, Low Labor (Flat Terrain)", rate: "$2.35/ft", unit: "ft", cat: "habitat", perm: "perennial", tier: "standard", desc: "Linear woody wildlife corridor (>= 1 woody row) installed via mechanical planter.", capp: "00N", om: "Mechanical/chemical weed suppression.", req: "490, 595" },
+{ id: "422_32", code: "422", name: "Hedgerow — Beetle Bank (IPM Beneficial Insects)", rate: "$1.92/ft", unit: "ft", cat: "habitat", perm: "perennial", tier: "specialized", desc: "Raised linear earth mound planted to bunchgrasses for overwintering predatory beetles.", capp: "01N", om: "Exclude pesticides per Agronomy Tech Note 9.", req: "595, 386" },
+{ id: "422_scr", code: "422", name: "Hedgerow — Woody / Tall Grass Drift & Odor Screen", rate: "$2.85/ft", unit: "ft", cat: "air", perm: "perennial", tier: "standard", desc: "50-65% optical porosity woody/tall grass screen for livestock odor or pesticide drift.", capp: "02N", om: "Trim/rejuvenate <= 1/3 length outside nesting season.", req: "380, 595" },
+// CPS 643 (14 scenarios)
+{ id: "643_5", code: "643", name: "Rare/Declining Community — Shallow Micro-Topography (Farm Equip.)", rate: "$680.00/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "standard", desc: "Shallow 2-6 in depressions and mounds using normal farm equipment.", capp: "00N", om: "Monitor plant colonization.", req: "315" },
+{ id: "643_6", code: "643", name: "Rare/Declining Community — Deep Micro-Topography (Heavy Dozer)", rate: "$1,450.00/ac", unit: "ac", cat: "habitat", perm: "perennial", tier: "intensive", desc: "Heavy dozer excavation (6-12 in) creating vernal depressions for rare wetland/savanna/prairie.", capp: "00N", om: "Control invasive species.", req: "315, 338" },
+{ id: "643_221", code: "643", name: "Rare/Declining Community — Beaver Dam Analogues (BDAs) / PALS", rate: "$4,120.00/ac", unit: "ac", cat: "water", perm: "perennial", tier: "specialized", desc: "Low-tech process-based restoration structures to aggrade incised channels and reconnect floodplains.", capp: "01N", om: "Inspect post-high flows; repair post structures.", req: "395, 410, 580" },
+{ id: "643_226", code: "643", name: "Rare/Declining Community — Rock Structure (Zuni Bowls / One-Rock Dams)", rate: "$2,890.00/ea", unit: "ea", cat: "erosion", perm: "perennial", tier: "standard", desc: "Hand- or machine-placed rock structures to arrest head-cuts in intermittent channels.", capp: "01N", om: "Inspect rock stability annually.", req: "410, 580" },
+{ id: "643_247", code: "643", name: "Rare/Declining Community — Oyster Reef Bagged Dredging, Spat on Shell", rate: "$12,400.00/ac", unit: "ac", cat: "habitat", perm: "subtidal", tier: "intensive", desc: "Bagged cultch shell with spat on shell; pair with Scen. 373 (Yr 1), 394 (Yr 2), 415 (Yr 3) monitoring.", capp: "02N", om: "Mandatory Yr 1-3 subtidal monitoring (Scen 373/394/415).", req: "373, 394, 415" },
+{ id: "643_289", code: "643", name: "Rare/Declining Community — Oyster Reef Barge Crane (~100 tons shell)", rate: "$18,500.00/ac", unit: "ac", cat: "habitat", perm: "subtidal", tier: "intensive", desc: "Heavy barge crane oyster reef placement; pair with monitoring Scen. 373, 394, 415.", capp: "02N", om: "Mandatory Yr 1-3 subtidal monitoring.", req: "373, 394, 415" },
+{ id: "643_310", code: "643", name: "Rare/Declining Community — Oyster Restoration Spat on Shell Only", rate: "$9,800.00/ac", unit: "ac", cat: "habitat", perm: "subtidal", tier: "specialized" }
+]
