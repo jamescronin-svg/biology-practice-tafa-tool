@@ -128,3 +128,136 @@ var PRACTICES = {
           { label: "Steep / rugged terrain (Hand planting — High Labor)", next: "422_s30" }
         ]
       },
+  "643": {
+    code: "643",
+    name: "Restoration of Rare or Declining Natural Communities",
+    source: "CPS 643 & FY 2026 Scenarios",
+    rcSummary: "Rare/Imperiled Plant & Wildlife Communities (Prairie, Savanna, Vernal Pool, Incised Riparian, Subtidal Oyster Reef)",
+    om: "Control invasive species; inspect structural integrity (BDAs, rock structures) post-high flows; conduct mandatory Yr 1–3 monitoring on subtidal oyster reefs.",
+    supporting: "Herbaceous Weed Treatment (315), Prescribed Burning (338), Grade Stabilization Structure (410), Streambank Protection (580), Stream Habitat Improvement (395).",
+    start: "643_q1",
+    nodes: {
+      "643_q1": {
+        tag: "CPS 643 · Step 1",
+        q: "What ecosystem type is being restored?",
+        options: [
+          { label: "Upland / Wetland Micro-Topography (Prairie, Savanna, Vernal Pool)", next: "643_q2" },
+          { label: "Incised Stream / Intermittent Channel (Process-Based Structures)", next: "643_q3" },
+          { label: "Estuarine / Subtidal Oyster Reef Habitat", next: "643_q4" }
+        ]
+      },
+      "643_q2": {
+        tag: "CPS 643 · Step 2 (Micro-Topography)",
+        q: "What excavation depth and equipment are needed?",
+        options: [
+          { label: "Shallow micro-topography (2–6 in) using normal farm equipment", next: "643_s5" },
+          { label: "Deep micro-topography (6–12 in) using heavy dozer", next: "643_s6" }
+        ]
+      },
+      "643_q3": {
+        tag: "CPS 643 · Step 2 (Channel Structures)",
+        q: "Which low-tech process-based structure fits the channel?",
+        options: [
+          { label: "Woody Beaver Dam Analogues (BDAs) or Post-Assisted Log Structures (PALS)", next: "643_s221" },
+          { label: "Rock Structures (Zuni Bowls or One-Rock Dams for head-cuts)", next: "643_s226" }
+        ]
+      },
+      "643_q4": {
+        tag: "CPS 643 · Step 2 (Oyster Reef)",
+        q: "Select the oyster reef construction method (Note: pair with Yr 1–3 monitoring):",
+        options: [
+          { label: "Spat on Shell Only (No heavy cultch barge)", next: "643_s310" },
+          { label: "Bagged Dredging with Spat on Shell", next: "643_s247" },
+          { label: "Barge Crane Reef Placement (~100 tons shell/ac)", next: "643_s289" },
+          { label: "Post-Construction Subtidal Monitoring (Yr 1, 2, or 3)", next: "643_mon" }
+        ]
+      },
+      "643_s5": { type: "result", tag: "CPS 643 · Scenario 5", q: "Scenario 5: Shallow Micro-Topography — Farm Equipment ($680.00/ac)", note: "Shallow 2-6 in depressions and mounds using normal farm equipment." },
+      "643_s6": { type: "result", tag: "CPS 643 · Scenario 6", q: "Scenario 6: Deep Micro-Topography — Heavy Dozer ($1,450.00/ac)", note: "Heavy dozer excavation (6-12 in) creating vernal depressions for rare wetland/savanna/prairie." },
+      "643_s221": { type: "result", tag: "CPS 643 · Scenario 221", q: "Scenario 221: Beaver Dam Analogues (BDAs) / PALS ($4,120.00/ac)", note: "Low-tech process-based restoration structures to aggrade incised channels and reconnect floodplains." },
+      "643_s226": { type: "result", tag: "CPS 643 · Scenario 226", q: "Scenario 226: Rock Structure — Zuni Bowls / One-Rock Dams ($2,890.00/ea)", note: "Hand- or machine-placed rock structures to arrest head-cuts in intermittent channels." },
+      "643_s310": { type: "result", tag: "CPS 643 · Scenario 310", q: "Scenario 310: Oyster Restoration Spat on Shell Only ($9,800.00/ac)", note: "Subtidal oyster restoration using spat on shell; pair with Yr 1-3 monitoring scenarios." },
+      "643_s247": { type: "result", tag: "CPS 643 · Scenario 247", q: "Scenario 247: Oyster Reef Bagged Dredging, Spat on Shell ($12,400.00/ac)", note: "Bagged cultch shell with spat on shell; pair with Scen. 373 (Yr 1), 394 (Yr 2), 415 (Yr 3)." },
+      "643_s289": { type: "result", tag: "CPS 643 · Scenario 289", q: "Scenario 289: Oyster Reef Barge Crane (~100 tons shell) ($18,500.00/ac)", note: "Heavy barge crane oyster reef placement; pair with monitoring Scen. 373, 394, 415." },
+      "643_mon": { type: "result", tag: "CPS 643 · Monitoring", q: "Oyster Reef Subtidal Monitoring: Scen. 373 (Yr 1), 394 (Yr 2), 415 (Yr 3)", note: "Annual biological and structural monitoring required after oyster reef installation." }
+    }
+  },
+  "644": {
+    code: "644",
+    name: "Wetland Wildlife Habitat Management",
+    source: "CPS 644 & FY 2026 Scenarios",
+    rcSummary: "Wetland Wildlife Habitat (Waterfowl, Shorebirds, Amphibians, Wading Birds)",
+    om: "Adjust water levels gradually per seasonal drawdown schedule; control invasive wetland plants; maintain moist-soil food plants.",
+    supporting: "Seasonal Water Management for Wildlife (646), Structure for Water Control (587), Herbaceous Weed Treatment (315), Wetland Restoration (657).",
+    start: "644_q1",
+    nodes: {
+      "644_q1": {
+        tag: "CPS 644 · Step 1",
+        q: "Does the site have active water control structures for moist-soil management, or is management focused on vegetation/hydrology?",
+        options: [
+          { label: "Active water control structures (Moist-soil drawdown & flood management)", next: "644_s1" },
+          { label: "Vegetation disturbance / mechanical or chemical invasive suppression", next: "644_s2" },
+          { label: "Natural / passive wetland habitat protection & grazing exclusion", next: "644_s3" }
+        ]
+      },
+      "644_s1": { type: "result", tag: "CPS 644 · Scenario 1", q: "Scenario 1: Wetland Wildlife Habitat Management — Water Level & Moist-Soil Mgmt ($64.50/ac)", note: "Timed seasonal drawdowns and re-flooding to produce native moist-soil seeds and invertebrates." },
+      "644_s2": { type: "result", tag: "CPS 644 · Scenario 2", q: "Scenario 2: Wetland Wildlife Habitat Management — Vegetation Manipulation ($92.15/ac)", note: "Disking, mowing, or targeted herbicide treatment to maintain hemi-marsh open water/cover ratio." },
+      "644_s3": { type: "result", tag: "CPS 644 · Scenario 3", q: "Scenario 3: Wetland Wildlife Habitat Management — Natural Wetland Mgmt ($38.40/ac)", note: "Management of natural/unimpounded wetlands to preserve native hydroperiod and wildlife cover." }
+    }
+  },
+  "645": {
+    code: "645",
+    name: "Upland Wildlife Habitat Management",
+    source: "CPS 645 & FY 2026 Scenarios",
+    rcSummary: "Terrestrial Habitat for Upland Wildlife, Grassland Birds, Pollinators & Small Game",
+    om: "Apply disturbance (prescribed burn, strip disking, haying/grazing) outside primary nesting/brood-rearing season on a 3-to-5 year rotation.",
+    supporting: "Prescribed Burning (338), Prescribed Grazing (528A), Herbaceous Weed Treatment (315), Brush Management (314), Wildlife Habitat Planting (420).",
+    start: "645_q1",
+    nodes: {
+      "645_q1": {
+        tag: "CPS 645 · Step 1",
+        q: "What level of management intensity is required to meet the target species Habitat Evaluation (WHEG) score?",
+        options: [
+          { label: "Standard Upland Management (Rotational mowing, strip disking, or grazing deferral)", next: "645_s1" },
+          { label: "Intensive Upland Management (Multi-practice disturbance, interseeding, or high-precision WHEG)", next: "645_s2" },
+          { label: "Cropland / Residue Winter Foraging Management (Un-harvested strips or stubble retention)", next: "645_s3" }
+        ]
+      },
+      "645_s1": { type: "result", tag: "CPS 645 · Scenario 1", q: "Scenario 1: Upland Wildlife Habitat Management — Standard ($32.80/ac)", note: "Routine rotational habitat disturbance and cover management outside nesting season." },
+      "645_s2": { type: "result", tag: "CPS 645 · Scenario 2", q: "Scenario 2: Upland Wildlife Habitat Management — Intensive ($68.40/ac)", note: "Intensive multi-stage habitat manipulation and interseeding for target species recovery." },
+      "645_s3": { type: "result", tag: "CPS 645 · Scenario 3", q: "Scenario 3: Upland Wildlife Habitat Management — Cropland Winter Cover/Food ($49.10/ac)", note: "Retention of standing crop residue or unharvested wildlife food strips through winter." }
+    }
+  },
+  "646": {
+    code: "646",
+    name: "Seasonal Water Management for Wildlife",
+    source: "CPS 646 & FY 2026 Scenarios",
+    rcSummary: "Seasonal Wetland / Agricultural Field Inundation for Migratory Waterfowl & Shorebirds",
+    om: "Install stoplogs/boards on schedule; monitor water depth (typically 4–18 in); dewater gradually in spring.",
+    supporting: "Structure for Water Control (587), Wetland Wildlife Habitat Management (644), Pumping Plant (533), Conservation Crop Rotation (328).",
+    start: "646_q1",
+    nodes: {
+      "646_q1": {
+        tag: "CPS 646 · Step 1",
+        q: "How is water supplied to flood the field or impoundment?",
+        options: [
+          { label: "Gravity-fed / Rainfall capture (Stoplog boards or flashboard risers)", next: "646_q2" },
+          { label: "Mechanically pumped water (Well or surface pump)", next: "646_q3" }
+        ]
+      },
+      "646_q2": {
+        tag: "CPS 646 · Step 2 (Gravity / Rainfall)",
+        q: "What level of water-level monitoring and labor is required?",
+        options: [
+          { label: "Low labor inputs (Single seasonal board installation & spring drawdown)", next: "646_s1" },
+          { label: "Medium labor inputs (Periodic board adjustments for staggered depths)", next: "646_s2" },
+          { label: "High labor inputs (Frequent multi-basin manipulation & monitoring)", next: "646_s3" }
+        ]
+      },
+      "646_q3": {
+        tag: "CPS 646 · Step 2 (Pumped Water)",
+        q: "What level of pumping operation and labor is required?",
+        options: [
+          { label: "Low labor inputs (Automated or routine single-fill pumping)", next: "646_s6" },
+          { label: "Medium labor inputs (Periodic re-pumping to offset evaporation/seepage)", next: "646_s4" },
+          { label: "High labor inputs (Continuous multi-stage pumping & depth management)", next: "646_s5" }
