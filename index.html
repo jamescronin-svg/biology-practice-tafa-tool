@@ -525,11 +525,11 @@
             </div>
           </div>
         `;
-      } else if (node.options && node.options.length > 0) {
+        } else if (node.options && node.options.length > 0) {
         html += `<div class="option-list">`;
         node.options.forEach(opt => {
           html += `
-            <button class="option-btn" onclick="goToNode('${opt.next}')">
+            <button class="option-btn" data-next="${opt.next.replace(/"/g, '&quot;')}" onclick="goToNode(this.dataset.next)">
               <span>${opt.label}</span>
               <span>→</span>
             </button>
