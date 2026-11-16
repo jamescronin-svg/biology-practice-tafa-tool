@@ -1,3 +1,5 @@
+// data-scenarios.js — Reconciled FY27 CAPP & FY26 Payment Scenarios
+const SCENARIOS = [
   {
     id: "390_CRP",
     code: "390",
