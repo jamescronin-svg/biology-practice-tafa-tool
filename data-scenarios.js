@@ -1,10 +1,3 @@
-// data-scenarios.js — Batch 1 of 2 (Practices 390, 420, 422, 643, 644, 645)
-// Reconciled with FY27 CAPP Values, FY26 Payment Scenario PDFs, and Updated CPS Standard Documents
-
-const SCENARIOS = [
-  // ==========================================
-  // CPS 390 — Riparian Herbaceous Cover
-  // ==========================================
   {
     id: "390_CRP",
     code: "390",
@@ -80,10 +73,6 @@ const SCENARIOS = [
     source: "CPS 390 (Nov 2022) & FY26 Scenarios",
     description: "Combined seeding and planting live sprigs or plugs in riparian zones with severe hydrology or scour risk."
   },
-
-  // ==========================================
-  // CPS 420 — Wildlife Habitat Planting
-  // ==========================================
   {
     id: "420_CRP",
     code: "420",
@@ -249,10 +238,6 @@ const SCENARIOS = [
     source: "CPS 420 (May 2019) & FY26 Scenarios",
     description: "Field-scale specialized seed mix for targeted wildlife requirements on fallow or non-cropland."
   },
-
-  // ==========================================
-  // CPS 422 — Hedgerow Planting
-  // ==========================================
   {
     id: "422_1",
     code: "422",
@@ -313,9 +298,6 @@ typicalTotal: "$1,442.20",
 source: "CPS 422 (Nov 2024) & FY26 Scenarios",
 description: "Raised linear earth mound planted with perennial bunchgrasses for overwintering beneficial predatory insects (protect from pesticide drift)."
 },
-// ==========================================
-// CPS 643 — Restoration of Rare or Declining Natural Communities
-// ==========================================
 {
 id: "643_CRP",
 code: "643",
@@ -511,9 +493,6 @@ typicalTotal: "$23,098.31 (3-Yr Total)",
 source: "CPS 643 (Mar 2017) & FY26 Scenarios",
 description: "Post-restoration biological and structural monitoring of restored oyster reefs across Years 1, 2, and 3."
 },
-// ==========================================
-// CPS 644 — Wetland Wildlife Habitat Management
-// ==========================================
 {
 id: "644_1",
 code: "644",
@@ -544,9 +523,6 @@ typicalTotal: "Varies",
 source: "CPS 644 & FY26 Scenarios",
 description: "Manage wetland vegetation structure, grazing, or disturbance timing to sustain target wetland wildlife habitat."
 },
-// ==========================================
-// CPS 645 — Wildlife Habitat Management (Updated 2026 Title)
-// ==========================================
 {
 id: "645_1",
 code: "645",
@@ -682,9 +658,6 @@ typicalTotal: "$2,882.54",
 source: "CPS 645 (2026 - NHCP Notice 179) & FY26 Scenarios",
 description: "Seasonal re-installation, monitoring, and takedown of turbo fladry fencing in Years 2 through 5."
 },
-    // ==========================================
-  // CPS 646 — Seasonal Water Management for Wildlife
-  // ==========================================
   {
     id: "646_CRP",
     code: "646",
@@ -775,10 +748,6 @@ description: "Seasonal re-installation, monitoring, and takedown of turbo fladry
     source: "CPS 646 (Nov 2024) & FY26 Scenarios",
     description: "Continuous pumped water flow, levee repair, fish passage, and temperature/dissolved oxygen monitoring on rice/cropland."
   },
-
-  // ==========================================
-  // CPS 647 — Early Successional Habitat Development-Management
-  // ==========================================
   {
     id: "647_CRP",
     code: "647",
@@ -884,10 +853,6 @@ description: "Seasonal re-installation, monitoring, and takedown of turbo fladry
     source: "CPS 647 (Nov 2022) & FY26 Scenarios",
     description: "Create early successional openings in closed-canopy forest using heavy machinery such as a dozer."
   },
-
-  // ==========================================
-  // CPS 649 — Structures for Wildlife (All 18 Scenarios)
-  // ==========================================
   {
     id: "649_1",
     code: "649",
@@ -1158,9 +1123,6 @@ typicalTotal: "$4,659.24",
 source: "CPS 649 (Sep 2014) & FY26 Scenarios",
 description: "12-foot electrified ground mat installed at road/fence crossings to deter large carnivores."
 },
-  // ==========================================
-  // CPS 657 — Wetland Restoration
-  // ==========================================
   {
     id: "657_CRP",
     code: "657",
@@ -1251,10 +1213,6 @@ description: "12-foot electrified ground mat installed at road/fence crossings t
     source: "CPS 657 (Nov 2024) & FY26 Scenarios",
     description: "Wet-condition earthwork using specialized equipment when spoil must be hauled offsite or fill imported."
   },
-
-  // ==========================================
-  // CPS 658 — Wetland Creation
-  // ==========================================
   {
     id: "658_CRP",
     code: "658",
