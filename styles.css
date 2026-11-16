@@ -1,0 +1,425 @@
+/* styles.css — NRCS Conservation Field Guide (Mobile-First) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+  line-height: 1.5;
+  padding-bottom: 40px;
+}
+
+header {
+  background: #14532d;
+  color: #ffffff;
+  padding: 18px 16px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  margin-bottom: 4px;
+}
+
+header p {
+  font-size: 0.88rem;
+  opacity: 0.9;
+}
+
+/* Navigation Tabs */
+.tab-bar {
+  display: flex;
+  background: #ffffff;
+  border-bottom: 2px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+  color: #14532d;
+  border-bottom-color: #14532d;
+  background: #f0fdf4;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Practice Cards Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.practice-card {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-left: 5px solid #15803d;
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.practice-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.practice-code {
+  display: inline-block;
+  background: #dcfce7;
+  color: #14532d;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.practice-card h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.practice-card p {
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+/* Flowchart Navigation & Banner */
+.flow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.back-btn, .secondary-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back-btn {
+  background: #14532d;
+  color: #ffffff;
+  border-color: #14532d;
+}
+
+.secondary-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.practice-banner {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.practice-banner h2 {
+  font-size: 1.1rem;
+  color: #14532d;
+}
+
+.practice-banner .meta {
+  font-size: 0.8rem;
+  color: #4b5563;
+  margin-top: 2px;
+}
+
+.step-box {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.legend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.78rem;
+  margin-bottom: 14px;
+  padding: 8px 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+/* History Breadcrumbs */
+.history-trail {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.history-item {
+  font-size: 0.82rem;
+  background: #f3f4f6;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #374151;
+}
+
+/* Decision Nodes: Black Diamond, Yellow Diamond, Red Hexagon, Green Scenario */
+.node-card {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.node-gate {
+  border: 2px solid #111827;
+  border-left: 8px solid #111827;
+  background: #f9fafb;
+}
+
+.badge-black-diamond {
+  display: inline-block;
+  background: #111827;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+}
+
+.node-question {
+  border: 2px solid #d97706;
+  border-left: 8px solid #d97706;
+  background: #fffbeb;
+}
+
+.badge-yellow-diamond {
+  display: inline-block;
+  background: #d97706;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+}
+
+.node-stop {
+  border: 2px solid #b91c1c;
+  border-left: 8px solid #b91c1c;
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+.badge-red-hexagon {
+  display: inline-block;
+  background: #b91c1c;
+  color: #ffffff;
+  padding: 5px 16px;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.node-result {
+  border: 2px solid #15803d;
+  border-left: 8px solid #15803d;
+  background: #f0fdf4;
+}
+
+.badge-green-result {
+  display: inline-block;
+  background: #15803d;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+}
+
+.node-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.node-card p {
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-btn {
+  text-align: left;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.option-btn:hover {
+  background: #ecfdf5;
+  border-color: #15803d;
+}
+
+.action-box {
+  background: #ffffff;
+  border: 1px solid #fca5a5;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #991b1b;
+  margin-top: 8px;
+}
+
+.om-box {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: #eff6ff;
+  border-left: 4px solid #1d4ed8;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  color: #1e3a8a;
+}
+
+.supporting-box {
+  margin-top: 14px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.supporting-box h4 {
+  color: #14532d;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.supporting-group {
+  margin-bottom: 4px;
+}
+
+/* Scenario Tab */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filter-bar input, .filter-bar select {
+  flex: 1 1 200px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.count-label {
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.scenario-card {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-left: 5px solid #14532d;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.scenario-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.scenario-tags span {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+.tag-cps { background: #dcfce7; color: #14532d; }
+.tag-capp { background: #fef3c7; color: #92400e; }
+.tag-num { background: #e0e7ff; color: #1e40af; }
+
+.scenario-rate {
+  font-weight: 700;
+  color: #14532d;
+  font-size: 0.95rem;
+}
+
+.scenario-card h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.scenario-meta {
+  font-size: 0.82rem;
+  color: #4b5563;
+  margin-bottom: 6px;
+}
+
+.scenario-desc {
+  font-size: 0.88rem;
+  color: #374151;
+}
