@@ -8,10 +8,11 @@ const PRACTICES = {
     category: "Water Quality / Hydrology",
     source: "CPS 390 (Nov 2022), FY27 CAPP & FY26 Scenarios",
     rcSummary: "Water Quality/Quantity, Streambank Stability, Fish & Wildlife/Pollinator Habitat, Plant Condition",
-    supportingPractices: {
+        supportingPractices: {
       "Livestock & Access Control": ["382 Fence", "472 Access Control", "528 Prescribed Grazing", "578 Stream Crossing", "614 Watering Facility", "561 Heavy Use Area"],
       "Up-Gradient & Bank Stabilization": ["580 Streambank Protection", "342 Critical Area Planting", "393 Filter Strip", "395 Stream Habitat Imp."],
-      "Site Prep, Pest & Habitat Mgmt": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "391 Riparian Forest Buffer", "327 Conservation Cover", "647 Early Successional Habitat"]
+      "Site Prep, Pest & Habitat Mgmt": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "647 Early Successional Habitat"],
+      "Woody Buffer or Upland Cover Alternatives": ["391 Riparian Forest Buffer", "327 Conservation Cover"]
     },
     startNode: "gate1",
     nodes: {
@@ -118,10 +119,11 @@ const PRACTICES = {
     category: "Wildlife / Habitat",
     source: "CPS 420 (May 2019), FY27 CAPP & FY26 Scenarios",
     rcSummary: "Terrestrial Habitat for Wildlife & Invertebrates (Pollinators), Degraded Plant Condition (WHEG < 0.50)",
-    supportingPractices: {
+       supportingPractices: {
       "Site Prep & Invasive Control": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "338 Prescribed Burning", "340 Cover Crop"],
       "Protection & Long-Term Mgmt": ["382 Fence", "472 Access Control", "528 Prescribed Grazing", "647 Early Successional Habitat"],
-      "Adjunct Structural / Buffer Practices": ["422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover", "393 Filter Strip"]
+      "Adjunct Structural / Buffer Practices": ["422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover", "393 Filter Strip"],
+      "Forage, Timber, or Erosion Alternatives": ["512 Pasture and Hay Planting", "550 Range Planting", "612 Tree/Shrub Establishment", "342 Critical Area Planting"]
     },
     startNode: "gate1",
     nodes: {
@@ -426,9 +428,10 @@ category: "Wildlife / Habitat",
 source: "CPS 643 (Mar 2017), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Degraded Plant Condition, Inadequate Terrestrial & Aquatic Habitat, Erosion, Water Quality & Hydrology",
 supportingPractices: {
-"Engineering & Hydrology": ["356 Dike and Levee", "362 Diversion", "378 Pond", "410 Grade Stabilization Structure", "580 Streambank Protection", "584 Channel Bed Stabilization", "587 Structure for Water Control"],
-"Vegetative & Facilitating": ["327 Conservation Cover", "550 Range Planting", "612 Tree/Shrub Establishment", "338 Prescribed Burning", "314 Brush Mgmt", "315 Herbaceous Weed Treatment"],
-"Protection & Management": ["382 Fence", "472 Access Control", "528 Prescribed Grazing", "666 Forest Stand Improvement", "645 Wildlife Habitat Mgmt", "644 Wetland Wildlife Habitat Mgmt"]
+  "Engineering & Hydrology": ["356 Dike and Levee", "362 Diversion", "378 Pond", "410 Grade Stabilization Structure", "580 Streambank Protection", "584 Channel Bed Stabilization", "587 Structure for Water Control"],
+  "Vegetative & Facilitating": ["327 Conservation Cover", "338 Prescribed Burning", "314 Brush Mgmt", "315 Herbaceous Weed Treatment"],
+  "Protection & Management": ["382 Fence", "472 Access Control", "528 Prescribed Grazing", "666 Forest Stand Improvement"],
+  "Non-Rare Community or Standard Restoration Alternatives": ["657 Wetland Restoration", "645 Wildlife Habitat Management", "550 Range Planting", "612 Tree/Shrub Establishment"]
 },
 startNode: "gate1",
 nodes: {
@@ -635,62 +638,6 @@ om: "Submit annual monitoring data for adaptive management."
 }
 }
 },
-"644": {
-code: "644",
-name: "Wetland Wildlife Habitat Management",
-category: "Wildlife / Habitat",
-source: "CPS 644 & FY 2026 Scenarios",
-rcSummary: "Terrestrial & Aquatic Habitat for Wetland-Dependent Wildlife (Waterfowl, Shorebirds, Amphibians)",
-supportingPractices: {
-"Water & Hydroperiod Mgmt": ["646 Seasonal Water Mgmt for Wildlife", "587 Structure for Water Control", "356 Dike and Levee"],
-"Vegetation & Pest Control": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "338 Prescribed Burning", "528 Prescribed Grazing"],
-"Restoration & Buffers": ["657 Wetland Restoration", "658 Wetland Creation", "659 Wetland Enhancement", "393 Filter Strip"]
-},
-startNode: "gate1",
-nodes: {
-"gate1": {
-type: "gate",
-shape: "black-diamond",
-title: "Pre-Condition 1: Wetland Hydrology & Restoration Status",
-text: "Does the site require earthwork, tile breaking, or structural restoration to re-establish wetland hydrology?",
-options: [
-{ label: "Yes — Abiotic Hydrologic Restoration Required", next: "stop_restore" },
-{ label: "No — Existing Wetland Requiring Habitat Management", next: "q1" }
-]
-},
-"stop_restore": {
-type: "stop",
-shape: "red-hexagon",
-title: "ABIOTIC RESTORATION REQUIRED FIRST",
-text: "Code 644 manages existing wetland habitat and does not fund structural wetland restoration.",
-action: "Use Wetland Restoration (657), Wetland Creation (658), or Wetland Enhancement (659) first."
-},
-"q1": {
-type: "question",
-shape: "yellow-diamond",
-title: "Primary Wetland Habitat Management Action",
-text: "Select the management action needed to achieve wetland habitat goals:",
-options: [
-{ label: "Manipulate water levels & moist-soil vegetation", next: "res_644_1" },
-{ label: "Control invasive wetland vegetation or manage grazing/disturbance", next: "res_644_2" }
-]
-},
-"res_644_1": {
-type: "result",
-scenarioId: "644_1",
-title: "Wetland Water & Moist-Soil Habitat Management",
-criteria: "Manage hydroperiod, drawdown timing, and moist-soil plant response for target wetland wildlife.",
-om: "Monitor water depths and vegetation composition; adjust drawdown timing outside nesting seasons."
-},
-"res_644_2": {
-type: "result",
-scenarioId: "644_2",
-title: "Wetland Vegetation & Grazing Management",
-criteria: "Manage wetland plant structure and control undesirable species to maintain target habitat.",
-om: "Re-evaluate wetland habitat conditions annually and protect sensitive breeding periods."
-}
-}
-},
 "645": {
 code: "645",
 name: "Wildlife Habitat Management",
@@ -698,9 +645,10 @@ category: "Wildlife / Habitat",
 source: "CPS 645 (2026 - NHCP Notice 179), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Terrestrial Habitat for Wildlife & Invertebrates (Food, Cover, Connectivity, Conflict Reduction)",
 supportingPractices: {
-"Establishment, Fencing & Watering": ["420 Wildlife Habitat Planting", "382 Fence", "472 Access Control", "614 Watering Facility"],
-"Disturbance & Pest Management": ["338 Prescribed Burning", "528 Prescribed Grazing", "314 Brush Mgmt", "315 Herbaceous Weed Treatment", "595 Pest Mgmt"],
-"Screens, Buffers & Nesting Structures": ["422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover", "393 Filter Strip"]
+  "Fencing, Watering & Access": ["382 Fence", "472 Access Control", "614 Watering Facility"],
+  "Disturbance & Pest Management": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "595 Pest Mgmt"],
+  "Screens, Buffers & Nesting Structures": ["422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover", "393 Filter Strip"],
+  "More Specific Practice Alternatives": ["420 Wildlife Habitat Planting", "647 Early Successional Habitat Dev-Mgmt", "338 Prescribed Burning", "528 Prescribed Grazing", "646 Seasonal Water Mgmt for Wildlife"]
 },
 startNode: "gate1",
 nodes: {
@@ -847,9 +795,9 @@ om: "Inspect flags and polywire before each deployment; maintain energizer charg
     source: "CPS 646 (Nov 2024), FY27 CAPP & FY26 Scenarios",
     rcSummary: "Terrestrial & Aquatic Habitat for Wildlife, Waterfowl, Shorebirds, Amphibians & Fish",
     supportingPractices: {
-      "Water Control & Infrastructure": ["356 Dike and Levee", "587 Structure for Water Control", "533 Pumping Plant", "362 Diversion", "430 Irrigation Pipeline"],
-      "Wetland & Habitat Management": ["644 Wetland Wildlife Habitat Mgmt", "657 Wetland Restoration", "658 Wetland Creation", "420 Wildlife Habitat Planting"],
-      "Vegetation, Pest & Access Control": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "338 Prescribed Burning", "382 Fence", "472 Access Control"]
+   "Water Control & Infrastructure": ["356 Dike and Levee", "587 Structure for Water Control", "533 Pumping Plant", "362 Diversion", "430 Irrigation Pipeline"],
+   "Vegetation, Pest & Access Control": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "338 Prescribed Burning", "382 Fence", "472 Access Control", "420 Wildlife Habitat Planting"],
+   "Permanent Restoration or Water Storage Alternatives": ["657 Wetland Restoration", "658 Wetland Creation", "614 Watering Facility", "378 Pond"]
     },
     startNode: "gate1",
     nodes: {
@@ -982,7 +930,6 @@ om: "Inspect flags and polywire before each deployment; maintain energizer charg
       }
     }
   },
-
   "647": {
     code: "647",
     name: "Early Successional Habitat Development-Management",
@@ -990,9 +937,9 @@ om: "Inspect flags and polywire before each deployment; maintain energizer charg
     source: "CPS 647 (Nov 2022), FY27 CAPP & FY26 Scenarios",
     rcSummary: "Terrestrial & Aquatic Wildlife Habitat (Early Successional Food, Nesting, Brood-Rearing, Escape Cover)",
     supportingPractices: {
-      "Disturbance & Invasive Control": ["338 Prescribed Burning", "394 Firebreak", "314 Brush Mgmt", "315 Herbaceous Weed Treatment", "384 Woody Residue Treatment"],
-      "Supplemental Seeding & Forest Mgmt": ["420 Wildlife Habitat Planting", "327 Conservation Cover", "550 Range Planting", "666 Forest Stand Improvement"],
-      "Erosion & Livestock Management": ["528 Prescribed Grazing", "382 Fence", "472 Access Control", "342 Critical Area Planting"]
+    "Disturbance & Invasive Control": ["338 Prescribed Burning", "394 Firebreak", "314 Brush Mgmt", "315 Herbaceous Weed Treatment", "384 Woody Residue Treatment"],
+    "Erosion & Livestock Management": ["528 Prescribed Grazing", "382 Fence", "472 Access Control", "342 Critical Area Planting"],
+    "Artificial Seeding or Timber Stand Alternatives": ["420 Wildlife Habitat Planting", "327 Conservation Cover", "550 Range Planting", "666 Forest Stand Improvement"]
     },
     startNode: "gate1",
     nodes: {
@@ -1130,9 +1077,10 @@ category: "Wildlife / Habitat",
 source: "CPS 649 (Sep 2014), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Inadequate Terrestrial & Aquatic Wildlife Habitat (Nesting, Perching, Cover, Escape, Passage)",
 supportingPractices: {
-"Habitat & Food/Cover Establishment": ["420 Wildlife Habitat Planting", "645 Wildlife Habitat Mgmt", "647 Early Successional Habitat"],
-"Fencing, Watering & Livestock Mgmt": ["382 Fence", "472 Access Control", "614 Watering Facility", "528 Prescribed Grazing"],
-"Riparian & Aquatic Enhancement": ["390 Riparian Herbaceous Cover", "391 Riparian Forest Buffer", "395 Stream Habitat Imp."]
+  "Habitat & Food/Cover Establishment": ["420 Wildlife Habitat Planting", "645 Wildlife Habitat Management", "647 Early Successional Habitat"],
+  "Fencing, Watering & Livestock Mgmt": ["382 Fence", "472 Access Control", "614 Watering Facility", "528 Prescribed Grazing"],
+  "Riparian & Aquatic Enhancement": ["390 Riparian Herbaceous Cover", "391 Riparian Forest Buffer", "395 Stream Habitat Imp."],
+  "Livestock, Human Access, or Erosion Alternatives": ["382 Fence (Livestock Containment)", "575 Trails and Walkways", "410 Grade Stabilization Structure"]
 },
 startNode: "gate1",
 nodes: {
@@ -1233,9 +1181,10 @@ category: "Water Quality / Hydrology",
 source: "CPS 657 (Nov 2024), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Loss of Wetland/Floodplain Functions, Terrestrial & Aquatic Wildlife Habitat, Water Quality & Flood Storage",
 supportingPractices: {
-"Hydraulic & Structural Practices": ["587 Structure for Water Control", "356 Dike and Levee", "410 Grade Stabilization Structure", "362 Diversion", "606 Subsurface Drain"],
-"Vegetative & Pest Management": ["644 Wetland Wildlife Habitat Mgmt", "612 Tree/Shrub Establishment", "327 Conservation Cover", "315 Herbaceous Weed Treatment", "314 Brush Mgmt"],
-"Upland Buffers & Livestock Protection": ["393 Filter Strip", "390 Riparian Herbaceous Cover", "382 Fence", "472 Access Control", "528 Prescribed Grazing"]
+  "Hydraulic & Structural Practices": ["587 Structure for Water Control", "356 Dike and Levee", "410 Grade Stabilization Structure", "362 Diversion", "606 Subsurface Drain"],
+  "Vegetative & Pest Management": ["645 Wildlife Habitat Management", "612 Tree/Shrub Establishment", "327 Conservation Cover", "315 Herbaceous Weed Treatment", "314 Brush Mgmt"],
+  "Upland Buffers & Livestock Protection": ["393 Filter Strip", "390 Riparian Herbaceous Cover", "382 Fence", "472 Access Control", "528 Prescribed Grazing"],
+  "Creation, Enhancement, or Management Alternatives": ["658 Wetland Creation", "659 Wetland Enhancement", "656 Constructed Wetland", "646 Seasonal Water Mgmt for Wildlife"]
 },
 startNode: "gate1",
 nodes: {
@@ -1367,9 +1316,10 @@ category: "Water Quality / Hydrology",
 source: "CPS 658 (2026 - NHCP Notice 179), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Terrestrial & Aquatic Wildlife Habitat, Water Quality & Flood Storage, Wetland Functions on Non-Wetlands",
 supportingPractices: {
-"Water Control & Embankment Practices": ["356 Dike and Levee", "587 Structure for Water Control", "362 Diversion", "520/521 Pond Sealing or Lining", "410 Grade Stabilization Structure"],
-"Vegetative & Habitat Management": ["644 Wetland Wildlife Habitat Mgmt", "420 Wildlife Habitat Planting", "612 Tree/Shrub Establishment", "342 Critical Area Planting", "327 Conservation Cover"],
-"Upland Buffers, Pest & Livestock Control": ["393 Filter Strip", "315 Herbaceous Weed Treatment", "314 Brush Mgmt", "382 Fence", "472 Access Control"]
+  "Water Control & Embankment Practices": ["356 Dike and Levee", "587 Structure for Water Control", "362 Diversion", "520/521 Pond Sealing or Lining", "410 Grade Stabilization Structure"],
+  "Vegetative & Habitat Management": ["645 Wildlife Habitat Management", "420 Wildlife Habitat Planting", "612 Tree/Shrub Establishment", "342 Critical Area Planting", "327 Conservation Cover"],
+  "Upland Buffers, Pest & Livestock Control": ["393 Filter Strip", "315 Herbaceous Weed Treatment", "314 Brush Mgmt", "382 Fence", "472 Access Control"],
+  "Restoration, Wastewater, or Pond Alternatives": ["657 Wetland Restoration", "659 Wetland Enhancement", "656 Constructed Wetland", "378 Pond"]
 },
 startNode: "gate1",
 nodes: {
@@ -1458,9 +1408,10 @@ category: "Water Quality / Hydrology",
 source: "CPS 659 (Nov 2022), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Loss of Wetland/Floodplain Functions, Terrestrial & Aquatic Wildlife Habitat, Water Quality & Flood Attenuation",
 supportingPractices: {
-"Hydraulic & Structural Practices": ["587 Structure for Water Control", "356 Dike and Levee", "410 Grade Stabilization Structure", "362 Diversion", "606 Subsurface Drain"],
-"Vegetative & Habitat Management": ["644 Wetland Wildlife Habitat Mgmt", "420 Wildlife Habitat Planting", "612 Tree/Shrub Establishment", "342 Critical Area Planting", "327 Conservation Cover"],
-"Buffers, Pest & Livestock Protection": ["393 Filter Strip", "315 Herbaceous Weed Treatment", "314 Brush Mgmt", "382 Fence", "472 Access Control"]
+  "Hydraulic & Structural Practices": ["587 Structure for Water Control", "356 Dike and Levee", "410 Grade Stabilization Structure", "362 Diversion", "606 Subsurface Drain"],
+  "Vegetative & Habitat Management": ["645 Wildlife Habitat Management", "420 Wildlife Habitat Planting", "612 Tree/Shrub Establishment", "342 Critical Area Planting", "327 Conservation Cover"],
+  "Buffers, Pest & Livestock Protection": ["393 Filter Strip", "315 Herbaceous Weed Treatment", "314 Brush Mgmt", "382 Fence", "472 Access Control"],
+  "Restoration, Creation, or Management Alternatives": ["657 Wetland Restoration", "658 Wetland Creation", "656 Constructed Wetland", "646 Seasonal Water Mgmt for Wildlife"]
 },
 startNode: "gate1",
 nodes: {
