@@ -177,6 +177,7 @@ function renderCurrentNode() {
         <h3>${node.title}</h3>
         <p>${node.text}</p>
         <div class="action-box">Recommended Action: ${node.action}</div>
+        <button class="print-btn" type="button" onclick="window.print()">🖨️ Print Plan Summary</button>
       </div>
     `;
   } else if (node.type === "question") {
@@ -204,9 +205,11 @@ function renderCurrentNode() {
 
       supportingHtml = `
         <div class="supporting-box" style="border: 2px solid #0284c7; background: #f0f9ff;">
-          <h4 style="color:#0369a1; margin-bottom:6px;">🔵 Unresolved Spreadsheet Resource Concerns? (Check all that apply)</h4>
-          <p style="font-size:0.82rem; color:#334155; margin-bottom:8px;">Select any secondary site issues that CPS ${practice.code} alone cannot resolve:</p>
-          ${checklistItems}
+          <div id="supporting-checklist-controls">
+            <h4 style="color:#0369a1; margin-bottom:6px;">🔵 Unresolved Spreadsheet Resource Concerns? (Check all that apply)</h4>
+            <p style="font-size:0.82rem; color:#334155; margin-bottom:8px;">Select any secondary site issues that CPS ${practice.code} alone cannot resolve:</p>
+            ${checklistItems}
+          </div>
           <div id="selected-supporting-output" style="margin-top:8px; font-size:0.86rem;">
             <em style="color:#4b5563;">No secondary resource concerns selected. Primary practice alone is sufficient.</em>
           </div>
@@ -221,11 +224,11 @@ function renderCurrentNode() {
         <p><strong>Criteria:</strong> ${node.criteria}</p>
         ${node.om ? `<div class="om-box"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ${node.om}</div>` : ""}
         ${supportingHtml}
+        <button class="print-btn" type="button" onclick="window.print()">🖨️ Print Plan Summary</button>
       </div>
     `;
   }
 }
-
 function filterScenarios() {
   const searchVal = document.getElementById("scenario-search").value.toLowerCase().trim();
   const cpsVal = document.getElementById("practice-filter").value;
