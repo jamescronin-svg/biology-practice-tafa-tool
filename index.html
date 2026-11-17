@@ -87,7 +87,6 @@
     .print-btn:hover {
       background: #166534;
     }
-
     @media print {
       body {
         background: #ffffff;
@@ -97,7 +96,8 @@
       .flow-header,
       .legend-bar,
       .print-btn,
-      #supporting-checklist-controls {
+      #supporting-checklist-controls p,
+      #supporting-checklist-controls label:not(.is-checked) {
         display: none !important;
       }
       header {
@@ -193,8 +193,8 @@
     <div id="scenario-list" class="scenario-grid"></div>
   </main>
 
-  <script src="data-flowcharts.js?v=196"></script>
-  <script src="data-scenarios.js?v=196"></script>
-  <script src="app.js?v=196"></script>
+  <script src="data-flowcharts.js?v=197"></script>
+  <script src="data-scenarios.js?v=197"></script>
+  <script src="app.js?v=197"></script>
 </body>
 </html>
