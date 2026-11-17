@@ -133,6 +133,15 @@ function updateSupportingChecklist() {
     }
   });
 
+  if (alternativeHtml && companionHtml) {
+    companionHtml = `
+      <div style="margin-top:12px; padding:8px 10px; background:#fef3c7; border-left:4px solid #d97706; border-radius:4px; font-size:0.84rem; color:#92400e;">
+        <strong>Note:</strong> Resolve the alternative practice selection above first before adding CPS ${practice.code} companion practices.
+      </div>
+      ${companionHtml}
+    `;
+  }
+
   outputEl.innerHTML = `${alternativeHtml}${companionHtml}`;
 }
 function renderCurrentNode() {
