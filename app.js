@@ -171,7 +171,7 @@ function renderCurrentNode() {
     qEl.innerHTML =
       '<div class="node-card node-gate">' +
         '<span class="badge-black-diamond">&#9670; PRE-CONDITION GATE</span>' +
-        '<h3>' + node.title + '</h3>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
         '<p>' + node.text + '</p>' +
         '<div class="option-list">' + gateOpts + '</div>' +
       '</div>';
@@ -179,10 +179,10 @@ function renderCurrentNode() {
     qEl.innerHTML =
       '<div class="node-card node-stop">' +
         '<span class="badge-red-hexagon">&#128721; STOP / ALTERNATE CPS</span>' +
-        '<h3>' + node.title + '</h3>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
         '<p>' + node.text + '</p>' +
         '<div class="action-box">Recommended Action: ' + node.action + '</div>' +
-        '<button class="print-btn" type="button" onclick="window.print()">&#128424; Print Plan Summary</button>' +
+        '<button class="print-btn" type="button" onclick="window.print()" style="margin-top:14px; padding:10px 18px; background-color:#14532d; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128424; Print Plan Summary</button>'
       '</div>';
   } else if (node.type === "question") {
     var qOpts = node.options.map(function (opt) {
@@ -193,7 +193,7 @@ function renderCurrentNode() {
     qEl.innerHTML =
       '<div class="node-card node-question">' +
         '<span class="badge-yellow-diamond">&#128160; DECISION / CAPP CRITERIA</span>' +
-        '<h3>' + node.title + '</h3>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
         '<p>' + node.text + '</p>' +
         '<div class="option-list">' + qOpts + '</div>' +
       '</div>';
