@@ -1,4 +1,4 @@
-// app.js — Interactive Flowchart & FY27 Scenario Controller
+// app.js — Interactive Flowchart, Unresolved Resource Concerns Checklist & FY27 Scenario Controller
 let currentPracticeCode = null;
 let currentNodeId = null;
 let stepHistory = [];
@@ -90,6 +90,35 @@ function selectOption(optionLabel, nextNodeId) {
   renderCurrentNode();
 }
 
+function updateSupportingChecklist() {
+  const practice = PRACTICES[currentPracticeCode];
+  if (!practice || !practice.supportingPractices) return;
+
+  const checkboxes = document.querySelectorAll(".rc-support-checkbox:checked");
+  const outputEl = document.getElementById("selected-supporting-output");
+  if (!outputEl) return;
+
+  if (checkboxes.length === 0) {
+    outputEl.innerHTML = `<em style="color:#4b5563;">No secondary resource concerns selected. Primary practice alone is sufficient.</em>`;
+    return;
+  }
+
+  const selectedGroups = Array.from(checkboxes).map(cb => {
+    const groupKey = cb.value;
+    const codes = practice.supportingPractices[groupKey] || [];
+    return `
+      <div style="margin-top:6px; padding:8px; background:#ecfdf5; border-left:4px solid #15803d; border-radius:4px;">
+        <strong>${groupKey}:</strong> ${codes.join(", ")}
+      </div>
+    `;
+  });
+
+  outputEl.innerHTML = `
+    <div style="margin-top:8px; font-weight:700; color:#14532d;">Recommended Supporting CPS Codes to Add to Plan:</div>
+    ${selectedGroups.join("")}
+  `;
+}
+
 function renderCurrentNode() {
   const practice = PRACTICES[currentPracticeCode];
   const node = practice.nodes[currentNodeId];
@@ -103,7 +132,6 @@ function renderCurrentNode() {
     .map((h, i) => `<div class="history-item"><strong>Step ${i + 1}:</strong> ${h.questionTitle} → <em>${h.chosenLabel}</em></div>`)
     .join("");
 
-  // Render Current Node by Type (gate = Black Diamond, stop = Red Hexagon, question = Yellow Diamond, result = Green Scenario)
   const qEl = document.getElementById("current-question");
 
   if (node.type === "gate") {
@@ -140,13 +168,23 @@ function renderCurrentNode() {
   } else if (node.type === "result") {
     let supportingHtml = "";
     if (practice.supportingPractices) {
-      const groups = Object.entries(practice.supportingPractices)
-        .map(([groupName, codes]) => `<div class="supporting-group"><strong>${groupName}:</strong> ${codes.join(", ")}</div>`)
+      const checklistItems = Object.keys(practice.supportingPractices)
+        .map(groupName => `
+          <label style="display:flex; align-items:flex-start; gap:8px; margin-bottom:6px; cursor:pointer; font-weight:500;">
+            <input type="checkbox" class="rc-support-checkbox" value="${groupName.replace(/"/g, "&quot;")}" onchange="updateSupportingChecklist()" style="margin-top:4px; transform:scale(1.15);">
+            <span>Unresolved <strong>${groupName}</strong> concerns on site?</span>
+          </label>
+        `)
         .join("");
+
       supportingHtml = `
-        <div class="supporting-box">
-          <h4>Supporting Practices (For Unresolved Resource Concerns)</h4>
-          ${groups}
+        <div class="supporting-box" style="border: 2px solid #0284c7; background: #f0f9ff;">
+          <h4 style="color:#0369a1; margin-bottom:6px;">🔵 Unresolved Spreadsheet Resource Concerns? (Check all that apply)</h4>
+          <p style="font-size:0.82rem; color:#334155; margin-bottom:8px;">Select any secondary site issues that CPS ${practice.code} alone cannot resolve:</p>
+          ${checklistItems}
+          <div id="selected-supporting-output" style="margin-top:8px; font-size:0.86rem;">
+            <em style="color:#4b5563;">No secondary resource concerns selected. Primary practice alone is sufficient.</em>
+          </div>
         </div>
       `;
     }
