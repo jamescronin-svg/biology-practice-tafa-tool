@@ -89,7 +89,6 @@ function selectOption(optionLabel, nextNodeId) {
   currentNodeId = nextNodeId;
   renderCurrentNode();
 }
-
 function updateSupportingChecklist() {
   const practice = PRACTICES[currentPracticeCode];
   if (!practice || !practice.supportingPractices) return;
@@ -103,22 +102,39 @@ function updateSupportingChecklist() {
     return;
   }
 
-  const selectedGroups = Array.from(checkboxes).map(cb => {
+  let companionHtml = "";
+  let alternativeHtml = "";
+
+  Array.from(checkboxes).forEach(cb => {
     const groupKey = cb.value;
     const codes = practice.supportingPractices[groupKey] || [];
-    return `
-      <div style="margin-top:6px; padding:8px; background:#ecfdf5; border-left:4px solid #15803d; border-radius:4px;">
-        <strong>${groupKey}:</strong> ${codes.join(", ")}
-      </div>
-    `;
+    const isAlternative = groupKey.toLowerCase().includes("alternative");
+
+    if (isAlternative) {
+      alternativeHtml += `
+        <div class="node-card node-stop" style="margin-top:10px; padding:12px;">
+          <span class="badge-red-hexagon">🛑 STOP — USE PREFERABLE ALTERNATIVE CPS</span>
+          <div style="font-weight:700; margin-bottom:4px;">${groupKey}</div>
+          <p style="font-size:0.86rem; margin-bottom:6px;">
+            Do <strong>not</strong> stack these practices with CPS ${practice.code} on the same footprint. Replace CPS ${practice.code} with the applicable primary practice below:
+          </p>
+          <div class="action-box" style="font-size:0.86rem;">
+            Preferable Alternative CPS Codes: ${codes.join(", ")}
+          </div>
+        </div>
+      `;
+    } else {
+      companionHtml += `
+        <div style="margin-top:8px; padding:10px; background:#ecfdf5; border-left:5px solid #15803d; border-radius:6px;">
+          <div style="font-weight:700; color:#14532d; margin-bottom:2px;">✅ Companion Supporting Practices — ${groupKey}:</div>
+          <div style="font-size:0.86rem; color:#1f2937;">Add to plan alongside CPS ${practice.code}: <strong>${codes.join(", ")}</strong></div>
+        </div>
+      `;
+    }
   });
 
-  outputEl.innerHTML = `
-    <div style="margin-top:8px; font-weight:700; color:#14532d;">Recommended Supporting CPS Codes to Add to Plan:</div>
-    ${selectedGroups.join("")}
-  `;
+  outputEl.innerHTML = `${alternativeHtml}${companionHtml}`;
 }
-
 function renderCurrentNode() {
   const practice = PRACTICES[currentPracticeCode];
   const node = practice.nodes[currentNodeId];
