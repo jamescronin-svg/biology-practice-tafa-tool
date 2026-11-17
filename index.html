@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#14532d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>NRCS Biology Practice TA-FA Flowchart &amp; FY27 Scenarios</title>
   <link rel="stylesheet" href="styles.css?v=204">
     <style>
@@ -198,9 +201,14 @@
     <div id="scenario-count" class="count-label"></div>
     <div id="scenario-list" class="scenario-grid"></div>
   </main>
-
-  <script src="data-flowcharts.js?v=204"></script>
-  <script src="data-scenarios.js?v=204"></script>
-  <script src="app.js?v=204"></script>
+  <script src="data-flowcharts.js?v=205"></script>
+  <script src="data-scenarios.js?v=205"></script>
+  <script src="rates-config.js?v=205"></script>
+  <script src="app.js?v=205"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js");
+    }
+  </script>
 </body>
 </html>
