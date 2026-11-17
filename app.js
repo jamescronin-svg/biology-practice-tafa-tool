@@ -228,17 +228,16 @@ function renderCurrentNode() {
     var omHtml = node.om
       ? '<div class="om-box" style="margin-top:14px;"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ' + node.om + '</div>'
       : '';
-
     qEl.innerHTML =
       '<div class="node-card node-result">' +
         '<span class="badge-green-result">&#9989; RECOMMENDED PAYMENT SCENARIO</span>' +
-'' + node.title + '' +
-'Criteria: ' + node.criteria + '' +
-supportingHtml +
-omHtml +
-'🖨 Print Plan Summary' +
-'';
-}
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
+        '<p><strong>Criteria:</strong> ' + node.criteria + '</p>' +
+        supportingHtml +
+        omHtml +
+        '<button class="print-btn" type="button" onclick="window.print()" style="margin-top:14px; padding:10px 18px; background-color:#14532d; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128424; Print Plan Summary</button>' +
+      '</div>';
+  }
 }
 function filterScenarios() {
 var searchVal = document.getElementById("scenario-search").value.toLowerCase().trim();
