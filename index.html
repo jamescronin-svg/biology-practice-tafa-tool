@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NRCS Practice Flowchart &amp; FY27 Scenarios</title>
   <link rel="stylesheet" href="styles.css?v=191">
-  <style>
+    <style>
     /* Shape Legend Bar */
     .legend-bar {
       display: flex;
@@ -68,6 +68,58 @@
       border-left: 4px solid #15803d;
       border-radius: 4px;
       font-size: 0.85rem;
+    }
+    /* Print Button & Clean Print Layout */
+    .print-btn {
+      margin-top: 14px;
+      padding: 10px 16px;
+      background: #14532d;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .print-btn:hover {
+      background: #166534;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding-bottom: 0;
+      }
+      .tab-bar,
+      .flow-header,
+      .legend-bar,
+      .print-btn,
+      #supporting-checklist-controls {
+        display: none !important;
+      }
+      header {
+        background: #ffffff;
+        color: #111827;
+        border-bottom: 2px solid #14532d;
+        box-shadow: none;
+        padding: 8px 0;
+      }
+      main {
+        max-width: 100%;
+        padding: 0;
+      }
+      .step-box,
+      .practice-banner {
+        border: 1px solid #9ca3af;
+        box-shadow: none;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
     }
   </style>
 </head>
@@ -141,8 +193,8 @@
     <div id="scenario-list" class="scenario-grid"></div>
   </main>
 
-  <script src="data-flowcharts.js?v=195"></script>
-  <script src="data-scenarios.js?v=195"></script>
-  <script src="app.js?v=195"></script>
+  <script src="data-flowcharts.js?v=196"></script>
+  <script src="data-scenarios.js?v=196"></script>
+  <script src="app.js?v=196"></script>
 </body>
 </html>
