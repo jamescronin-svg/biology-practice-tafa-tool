@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return;
   }
+  if (typeof applyAnnualOverrides === "function") applyAnnualOverrides();
   renderPracticeCards();
   filterScenarios();
 });
