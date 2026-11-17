@@ -93,13 +93,16 @@ function updateSupportingChecklist() {
   const practice = PRACTICES[currentPracticeCode];
   if (!practice || !practice.supportingPractices) return;
 
+  // Toggle .is-checked on each checkbox's parent label for clean printing
+  document.querySelectorAll(".rc-support-checkbox").forEach(cb => {
+    if (cb.parentElement) {
+      cb.parentElement.classList.toggle("is-checked", cb.checked);
+    }
+  });
+
   const checkboxes = document.querySelectorAll(".rc-support-checkbox:checked");
   const outputEl = document.getElementById("selected-supporting-output");
   if (!outputEl) return;
-
-  if (checkboxes.length === 0) {
-    outputEl.innerHTML = `<em style="color:#4b5563;">No secondary resource concerns selected. Primary practice alone is sufficient.</em>`;
-    return;
   }
 
   let companionHtml = "";
@@ -222,13 +225,12 @@ function renderCurrentNode() {
         <span class="badge-green-result">✅ RECOMMENDED PAYMENT SCENARIO</span>
         <h3>${node.title}</h3>
         <p><strong>Criteria:</strong> ${node.criteria}</p>
-        ${node.om ? `<div class="om-box"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ${node.om}</div>` : ""}
         ${supportingHtml}
+        ${node.om ? `<div class="om-box" style="margin-top:14px;"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ${node.om}</div>` : ""}
         <button class="print-btn" type="button" onclick="window.print()">🖨️ Print Plan Summary</button>
       </div>
     `;
   }
-}
 function filterScenarios() {
   const searchVal = document.getElementById("scenario-search").value.toLowerCase().trim();
   const cpsVal = document.getElementById("practice-filter").value;
