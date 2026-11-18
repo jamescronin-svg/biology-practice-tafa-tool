@@ -122,7 +122,7 @@ const PRACTICES = {
        supportingPractices: {
       "Site Prep & Invasive Control": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "338 Prescribed Burning", "340 Cover Crop"],
       "Protection & Long-Term Mgmt": ["382 Fence", "472 Access Control", "528 Prescribed Grazing", "647 Early Successional Habitat"],
-      "Adjunct Structural / Buffer Practices": ["422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover", "393 Filter Strip"],
+      "Adjunct Structural / Buffer Practices": ["386 Field Border", "422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover"],
       "Forage, Timber, or Erosion Alternatives": ["512 Pasture and Hay Planting", "550 Range Planting", "612 Tree/Shrub Establishment", "342 Critical Area Planting"]
     },
     startNode: "gate1",
@@ -314,7 +314,7 @@ source: "CPS 422 (Nov 2024) & FY26 Scenarios",
 rcSummary: "Terrestrial/Aquatic Habitat, Beneficial Invertebrates/IPM, Air Quality PM/Drift/Odor, Visual/Physical Screens",
 supportingPractices: {
 "Establishment & Site Prep": ["490 Tree/Shrub Site Prep", "484 Mulching", "441 Irrigation System, Microirrigation", "382 Fence", "472 Access Control"],
-"Habitat & Pest Augmentation": ["420 Wildlife Habitat Planting", "649 Structures for Wildlife", "595 Pest Management Conservation System"],
+"Habitat & Pest Augmentation": ["386 Field Border", "420 Wildlife Habitat Planting", "649 Structures for Wildlife", "595 Pest Management Conservation System"],
 "Erosion / Nutrient / Snow Trapping Alternatives": ["380 Windbreak/Shelterbelt Estab.", "391 Riparian Forest Buffer", "393 Filter Strip", "601 Vegetative Barrier", "311 Alley Cropping"]
 },
 startNode: "gate1",
@@ -647,7 +647,7 @@ rcSummary: "Terrestrial Habitat for Wildlife & Invertebrates (Food, Cover, Conne
 supportingPractices: {
   "Fencing, Watering & Access": ["382 Fence", "472 Access Control", "614 Watering Facility"],
   "Disturbance & Pest Management": ["314 Brush Mgmt", "315 Herbaceous Weed Treatment", "595 Pest Mgmt"],
-  "Screens, Buffers & Nesting Structures": ["422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover", "393 Filter Strip"],
+  "Screens, Buffers & Nesting Structures": ["386 Field Border", "422 Hedgerow Planting", "649 Structures for Wildlife", "390 Riparian Herbaceous Cover"],
   "More Specific Practice Alternatives": ["420 Wildlife Habitat Planting", "647 Early Successional Habitat Dev-Mgmt", "338 Prescribed Burning", "528 Prescribed Grazing", "646 Seasonal Water Mgmt for Wildlife"]
 },
 startNode: "gate1",
@@ -938,7 +938,7 @@ om: "Inspect flags and polywire before each deployment; maintain energizer charg
     rcSummary: "Terrestrial & Aquatic Wildlife Habitat (Early Successional Food, Nesting, Brood-Rearing, Escape Cover)",
     supportingPractices: {
     "Disturbance & Invasive Control": ["338 Prescribed Burning", "394 Firebreak", "314 Brush Mgmt", "315 Herbaceous Weed Treatment", "384 Woody Residue Treatment"],
-    "Erosion & Livestock Management": ["528 Prescribed Grazing", "382 Fence", "472 Access Control", "342 Critical Area Planting"],
+    "Erosion & Livestock Management": ["386 Field Border", "528 Prescribed Grazing", "382 Fence", "472 Access Control", "342 Critical Area Planting"],
     "Artificial Seeding or Timber Stand Alternatives": ["420 Wildlife Habitat Planting", "327 Conservation Cover", "550 Range Planting", "666 Forest Stand Improvement"]
     },
     startNode: "gate1",
@@ -1077,7 +1077,7 @@ category: "Wildlife / Habitat",
 source: "CPS 649 (Sep 2014), FY27 CAPP & FY26 Scenarios",
 rcSummary: "Inadequate Terrestrial & Aquatic Wildlife Habitat (Nesting, Perching, Cover, Escape, Passage)",
 supportingPractices: {
-  "Habitat & Food/Cover Establishment": ["420 Wildlife Habitat Planting", "645 Wildlife Habitat Management", "647 Early Successional Habitat"],
+  "Habitat & Food/Cover Establishment": ["386 Field Border", "420 Wildlife Habitat Planting", "645 Wildlife Habitat Management", "647 Early Successional Habitat"],
   "Fencing, Watering & Livestock Mgmt": ["382 Fence", "472 Access Control", "614 Watering Facility", "528 Prescribed Grazing"],
   "Riparian & Aquatic Enhancement": ["390 Riparian Herbaceous Cover", "391 Riparian Forest Buffer", "395 Stream Habitat Imp."],
   "Livestock, Human Access, or Erosion Alternatives": ["382 Fence (Livestock Containment)", "575 Trails and Walkways", "410 Grade Stabilization Structure"]
