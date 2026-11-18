@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
   renderHabitatFilterBar();
   renderPracticeCards();
 });
-
 function renderHabitatFilterBar() {
   var bar = document.getElementById("habitat-filter-bar");
   if (!bar || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.habitatSystems) return;
@@ -29,10 +28,9 @@ function renderHabitatFilterBar() {
     var btnStyle = isActive
       ? "padding:7px 12px; border-radius:20px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.82rem; font-weight:700; cursor:pointer;"
       : "padding:7px 12px; border-radius:20px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.82rem; font-weight:600; cursor:pointer;";
-    return '<button type="button" style="' + btnStyle + '" onclick="setHabitatFilter(\'' + key + '\')">' + systems[key].label + '</button>';
+    return '<button type="button" data-key="' + key + '" style="' + btnStyle + '" onclick="setHabitatFilter(this.getAttribute(\'data-key\'))">' + systems[key].label + '</button>';
   }).join("");
 }
-
 function setHabitatFilter(key) {
   activeHabitatFilter = key;
   renderHabitatFilterBar();
