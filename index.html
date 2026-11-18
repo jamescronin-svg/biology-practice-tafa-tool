@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#14532d">
   <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
   <title>NRCS Biology Practice TA-FA Flowchart &amp; FY27 Scenarios</title>
-  <link rel="stylesheet" href="styles.css?v=216">
+  <link rel="stylesheet" href="styles.css?v=217">
     <style>
     /* Shape Legend Bar */
     .legend-bar {
@@ -147,7 +147,7 @@
       </div>
       <select id="state-select" onchange="changeStateProfile(this.value)" style="padding:6px 10px; border:1px solid #9ca3af; border-radius:6px; font-size:0.88rem; font-weight:600; background:#f9fafb; cursor:pointer;"></select>
     </div>
-    <div id="habitat-filter-bar" style="display:flex; flex-wrap:nowrap; overflow-x:auto; gap:6px; margin-bottom:14px; padding-bottom:4px;"></div>
+    <div id="habitat-filter-bar" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(145px, 1fr)); gap:6px; margin-bottom:14px;"></div>
     <div id="practice-selector" class="card-grid"></div>
     <div id="flow-container" class="hidden">
       <div class="flow-header">
@@ -253,10 +253,10 @@
     </div>
   </div>
 
-  <script src="data-flowcharts.js?v=216"></script>
-  <script src="data-scenarios.js?v=216"></script>
-  <script src="rates-config.js?v=216"></script>
-  <script src="app.js?v=216"></script>
+  <script src="data-flowcharts.js?v=217"></script>
+  <script src="data-scenarios.js?v=217"></script>
+  <script src="rates-config.js?v=217"></script>
+  <script src="app.js?v=217"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
