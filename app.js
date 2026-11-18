@@ -1,32 +1,56 @@
-// app.js — Complete Interactive Flowchart, Unresolved Resource Concerns & Print Controller
+// app.js — Complete Interactive Flowchart, Habitat System Filter, State Guardrails & Copy/Print Controller
 var currentPracticeCode = null;
 var currentNodeId = null;
 var stepHistory = [];
+var activeHabitatFilter = "ALL";
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (typeof PRACTICES === "undefined" || typeof SCENARIOS === "undefined") {
+  if (typeof PRACTICES === "undefined") {
     var selector = document.getElementById("practice-selector");
     if (selector) {
-      selector.innerHTML = '<div class="node-stop"><strong>Data Error:</strong> One of the data files failed to load. Check Console (F12).</div>';
+      selector.innerHTML = '<div class="node-stop"><strong>Data Error:</strong> Flowchart data failed to load. Check Console (F12).</div>';
     }
     return;
   }
-    if (typeof applyAnnualOverrides === "function") applyAnnualOverrides();
+  if (typeof applyAnnualOverrides === "function") {
+    applyAnnualOverrides();
+  }
+  renderHabitatFilterBar();
   renderPracticeCards();
 });
 
-function switchView(viewName) {
-  document.getElementById("view-flow").classList.toggle("hidden", viewName !== "flow");
-  document.getElementById("view-scenarios").classList.toggle("hidden", viewName !== "scenarios");
-  document.getElementById("tab-flow").classList.toggle("active", viewName === "flow");
-  document.getElementById("tab-scenarios").classList.toggle("active", viewName === "scenarios");
+function renderHabitatFilterBar() {
+  var bar = document.getElementById("habitat-filter-bar");
+  if (!bar || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.habitatSystems) return;
+
+  var systems = FISCAL_YEAR_CONFIG.habitatSystems;
+  bar.innerHTML = Object.keys(systems).map(function (key) {
+    var isActive = activeHabitatFilter === key;
+    var btnStyle = isActive
+      ? "padding:7px 12px; border-radius:20px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.82rem; font-weight:700; cursor:pointer;"
+      : "padding:7px 12px; border-radius:20px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.82rem; font-weight:600; cursor:pointer;";
+    return '<button type="button" style="' + btnStyle + '" onclick="setHabitatFilter(\'' + key + '\')">' + systems[key].label + '</button>';
+  }).join("");
+}
+
+function setHabitatFilter(key) {
+  activeHabitatFilter = key;
+  renderHabitatFilterBar();
+  renderPracticeCards();
 }
 
 function renderPracticeCards() {
   var container = document.getElementById("practice-selector");
   container.innerHTML = "";
 
+  var allowedCodes = null;
+  if (typeof FISCAL_YEAR_CONFIG !== "undefined" && FISCAL_YEAR_CONFIG.habitatSystems && FISCAL_YEAR_CONFIG.habitatSystems[activeHabitatFilter]) {
+    allowedCodes = FISCAL_YEAR_CONFIG.habitatSystems[activeHabitatFilter].codes;
+  }
+
   Object.values(PRACTICES).forEach(function (practice) {
+    if (allowedCodes && allowedCodes.indexOf(practice.code) === -1) return;
+
     var card = document.createElement("div");
     card.className = "practice-card";
     card.onclick = function () { startPractice(practice.code); };
@@ -44,6 +68,9 @@ function startPractice(code) {
   stepHistory = [];
   currentNodeId = practice.startNode;
 
+  var filterBar = document.getElementById("habitat-filter-bar");
+  if (filterBar) filterBar.classList.add("hidden");
+
   document.getElementById("practice-selector").classList.add("hidden");
   document.getElementById("flow-container").classList.remove("hidden");
 
@@ -60,6 +87,8 @@ function resetFlow() {
   currentNodeId = null;
   stepHistory = [];
   document.getElementById("flow-container").classList.add("hidden");
+  var filterBar = document.getElementById("habitat-filter-bar");
+  if (filterBar) filterBar.classList.remove("hidden");
   document.getElementById("practice-selector").classList.remove("hidden");
 }
 
@@ -147,6 +176,66 @@ function updateSupportingChecklist() {
   outputEl.innerHTML = alternativeHtml + companionHtml;
 }
 
+function copyPlanSummary() {
+  var practice = PRACTICES[currentPracticeCode];
+  var node = practice.nodes[currentNodeId];
+  var lines = [];
+
+  lines.push("NRCS CONSERVATION PLAN SUMMARY (" + (typeof FISCAL_YEAR_CONFIG !== "undefined" ? FISCAL_YEAR_CONFIG.fiscalYearLabel : "FY27") + ")");
+  lines.push("Practice: CPS " + practice.code + " - " + practice.name);
+  lines.push("Source: " + practice.source);
+  lines.push("");
+
+  if (stepHistory.length > 0) {
+    lines.push("Decision Path:");
+    stepHistory.forEach(function (h, i) {
+      lines.push("  " + (i + 1) + ". " + h.questionTitle + " -> " + h.chosenLabel);
+    });
+    lines.push("");
+  }
+
+  if (node.type === "stop") {
+    lines.push("OUTCOME: STOP / ALTERNATE CPS - " + node.title);
+    lines.push("Reason: " + node.text);
+    lines.push("Recommended Action: " + node.action);
+  } else {
+    lines.push("SELECTED SCENARIO: " + node.title);
+    lines.push("Criteria: " + node.criteria);
+    if (node.techSpec) lines.push(node.techSpec);
+    if (node.stateNote) lines.push(node.stateNote);
+
+    var checkboxes = document.querySelectorAll(".rc-support-checkbox:checked");
+    if (checkboxes.length > 0 && practice.supportingPractices) {
+      lines.push("");
+      lines.push("Secondary Resource Concerns & Supporting Practices:");
+      Array.from(checkboxes).forEach(function (cb) {
+        var groupKey = cb.value;
+        var codes = practice.supportingPractices[groupKey] || [];
+        var prefix = groupKey.toLowerCase().indexOf("alternative") !== -1 ? "[ALTERNATIVE CPS - DO NOT STACK] " : "[COMPANION CPS] ";
+        lines.push("  - " + prefix + groupKey + ": " + codes.join(", "));
+      });
+    }
+
+    if (node.om) {
+      lines.push("");
+      lines.push("Operation & Maintenance (O&M): " + node.om);
+    }
+  }
+
+  var textOutput = lines.join("\n");
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(textOutput).then(function () {
+      var btn = document.getElementById("copy-summary-btn");
+      if (btn) {
+        btn.innerHTML = "&#9989; Copied to Clipboard!";
+        setTimeout(function () { btn.innerHTML = "&#128203; Copy Plan Summary"; }, 2500);
+      }
+    });
+  } else {
+    prompt("Copy your conservation plan summary below (Ctrl+C):", textOutput);
+  }
+}
+
 function renderCurrentNode() {
   var practice = PRACTICES[currentPracticeCode];
   var node = practice.nodes[currentNodeId];
@@ -162,117 +251,89 @@ function renderCurrentNode() {
 
   var qEl = document.getElementById("current-question");
 
-  if (node.type === "gate") {
-    var gateOpts = node.options.map(function (opt) {
-      var safeLabel = opt.label.replace(/'/g, "\\'");
-      return '<button class="option-btn" type="button" onclick="selectOption(\'' + safeLabel + '\', \'' + opt.next + '\')">' + opt.label + '</button>';
-    }).join("");
-
-    qEl.innerHTML =
-      '<div class="node-card node-gate">' +
-        '<span class="badge-black-diamond">&#9670; PRE-CONDITION GATE</span>' +
-        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
-        '<p>' + node.text + '</p>' +
-        '<div class="option-list">' + gateOpts + '</div>' +
-      '</div>';
-  } else if (node.type === "stop") {
-    qEl.innerHTML =
-      '<div class="node-card node-stop">' +
-        '<span class="badge-red-hexagon">&#128721; STOP / ALTERNATE CPS</span>' +
-        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
-        '<p>' + node.text + '</p>' +
-        '<div class="action-box">Recommended Action: ' + node.action + '</div>' +
-        '<button class="print-btn" type="button" onclick="window.print()" style="margin-top:14px; padding:10px 18px; background-color:#14532d; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128424; Print Plan Summary</button>'
-      '</div>';
-  } else if (node.type === "question") {
-    var qOpts = node.options.map(function (opt) {
-      var safeLabel = opt.label.replace(/'/g, "\\'");
-      return '<button class="option-btn" type="button" onclick="selectOption(\'' + safeLabel + '\', \'' + opt.next + '\')">' + opt.label + '</button>';
-    }).join("");
-
-    qEl.innerHTML =
-      '<div class="node-card node-question">' +
-        '<span class="badge-yellow-diamond">&#128160; DECISION / CAPP CRITERIA</span>' +
-        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
-        '<p>' + node.text + '</p>' +
-        '<div class="option-list">' + qOpts + '</div>' +
-      '</div>';
-  } else if (node.type === "result") {
-    var supportingHtml = "";
-    if (practice.supportingPractices) {
-      var checklistItems = Object.keys(practice.supportingPractices)
-        .map(function (groupName) {
-          var safeVal = groupName.replace(/"/g, "&quot;");
-          return (
-            '<label style="display:flex; align-items:flex-start; gap:8px; margin-bottom:6px; cursor:pointer; font-weight:500;">' +
-              '<input type="checkbox" class="rc-support-checkbox" value="' + safeVal + '" onchange="updateSupportingChecklist()" style="margin-top:4px; transform:scale(1.15);">' +
-              '<span>Secondary <strong>' + groupName + '</strong> concerns on site?</span>' +
-            '</label>'
-          );
-        })
-        .join("");
-
-      supportingHtml =
-        '<div class="supporting-box" style="border: 2px solid #0284c7; background: #f0f9ff; margin-top:12px;">' +
-          '<div id="supporting-checklist-controls">' +
-            '<h4 style="color:#0369a1; margin-bottom:6px;">&#128309; Secondary Resource Concerns &amp; Supporting Practices (Check all that apply)</h4>' +
-            '<p style="font-size:0.82rem; color:#334155; margin-bottom:8px;">Select any secondary site issues that CPS ' + practice.code + ' alone cannot resolve:</p>' +
-            checklistItems +
-          '</div>' +
-          '<div id="selected-supporting-output" style="margin-top:8px; font-size:0.86rem;">' +
-            '<em style="color:#4b5563;">No secondary resource concerns selected. Primary practice alone is sufficient.</em>' +
-          '</div>' +
-        '</div>';
-    }
-
-    var stateNoteHtml = node.stateNote
-      ? '<div style="margin-top:10px; padding:10px 12px; background:#fefce8; border-left:4px solid #ca8a04; border-radius:4px; font-size:0.88rem; color:#854d0e;"><strong>&#128204; ' + node.stateNote + '</strong></div>'
-      : '';
-
-    var omHtml = node.om
-      ? '<div class="om-box" style="margin-top:14px;"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ' + node.om + '</div>'
-      : '';
-
-    qEl.innerHTML =
-      '<div class="node-card node-result">' +
-        '<span class="badge-green-result">&#9989; RECOMMENDED PAYMENT SCENARIO</span>' +
-        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
-        '<p><strong>Criteria:</strong> ' + node.criteria + '</p>' +
-        stateNoteHtml +
-        supportingHtml +
-        omHtml +
-        '<button class="print-btn" type="button" onclick="window.print()" style="margin-top:14px; padding:10px 18px; background-color:#14532d; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128424; Print Plan Summary</button>' +
-      '</div>';
-  }
-}
-function filterScenarios() {
-var searchVal = document.getElementById("scenario-search").value.toLowerCase().trim();
-var cpsVal = document.getElementById("practice-filter").value;
-var catVal = document.getElementById("category-filter").value;
-var filtered = SCENARIOS.filter(function (s) {
-var matchCps = cpsVal === "ALL" || s.code === cpsVal;
-var matchCat = catVal === "ALL" || s.category === catVal;
-var textBlob = (s.code + " " + s.practiceName + " " + s.capp + " " + s.scenarioNum + " " + s.name + " " + s.description).toLowerCase();
-var matchSearch = !searchVal || textBlob.indexOf(searchVal) !== -1;
-return matchCps && matchCat && matchSearch;
-});
-document.getElementById("scenario-count").textContent = "Showing " + filtered.length + " of " + SCENARIOS.length + " FY27 / FY26 Practice Scenarios";
-var listEl = document.getElementById("scenario-list");
-listEl.innerHTML = filtered.map(function (s) {
+  var actionButtonsHtml =
+    '<div class="no-print-actions" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;">' +
+'🖨 Print Plan Summary' +
+'📋 Copy Plan Summary' +
+'';
+if (node.type === "gate") {
+var gateOpts = node.options.map(function (opt) {
+var safeLabel = opt.label.replace(/'/g, "\'");
+return '' + opt.label + '';
+}).join("");
+qEl.innerHTML =
+'' +
+'◆ PRE-CONDITION GATE' +
+'' + node.title + '' +
+'' + node.text + '' +
+'' + gateOpts + '' +
+'';
+} else if (node.type === "stop") {
+qEl.innerHTML =
+'' +
+'🛑 STOP / ALTERNATE CPS' +
+'' + node.title + '' +
+'' + node.text + '' +
+'Recommended Action: ' + node.action + '' +
+actionButtonsHtml +
+'';
+} else if (node.type === "question") {
+var qOpts = node.options.map(function (opt) {
+var safeLabel = opt.label.replace(/'/g, "\'");
+return '' + opt.label + '';
+}).join("");
+qEl.innerHTML =
+'' +
+'💠 DECISION / CAPP CRITERIA' +
+'' + node.title + '' +
+'' + node.text + '' +
+'' + qOpts + '' +
+'';
+} else if (node.type === "result") {
+var supportingHtml = "";
+if (practice.supportingPractices) {
+var checklistItems = Object.keys(practice.supportingPractices)
+.map(function (groupName) {
+var safeVal = groupName.replace(/"/g, """);
 return (
 '' +
 '' +
-'' +
-'CPS ' + s.code + '' +
-'CAPP: ' + s.capp + '' +
-'Scenario ' + s.scenarioNum + '' +
-'' +
-'' + s.rate + ' / ' + s.unit + '' +
-'' +
-'' + s.practiceName + ' — ' + s.name + '' +
-'Typical Size: ' + s.typicalSize + ' | Typical Total: ' + s.typicalTotal + ' | Source: ' + s.source + '' +
-'' + s.description + '' +
+'Secondary ' + groupName + ' concerns on site?' +
 ''
 );
-}).join("");
+})
+.join("");
+supportingHtml =
+'' +
+'' +
+'🔵 Secondary Resource Concerns & Supporting Practices (Check all that apply)' +
+'Select any secondary site issues that CPS ' + practice.code + ' alone cannot resolve:' +
+checklistItems +
+'' +
+'' +
+'No secondary resource concerns selected. Primary practice alone is sufficient.' +
+'' +
+'';
+}
+var techSpecHtml = node.techSpec
+? '📐 ' + node.techSpec + ''
+: '';
+var stateNoteHtml = node.stateNote
+? '📌 ' + node.stateNote + ''
+: '';
+var omHtml = node.om
+? 'Operation & Maintenance (O&M): ' + node.om + ''
+: '';
+qEl.innerHTML =
+'' +
+'✅ RECOMMENDED PAYMENT SCENARIO' +
+'' + node.title + '' +
+'Criteria: ' + node.criteria + '' +
+techSpecHtml +
+stateNoteHtml +
+supportingHtml +
+omHtml +
+actionButtonsHtml +
+'';
+}
 }
