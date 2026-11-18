@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#14532d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>NRCS Biology Practice TA-FA Flowchart &amp; FY27 Scenarios</title>
-  <link rel="stylesheet" href="styles.css?v=204">
+  <link rel="stylesheet" href="styles.css?v=206">
     <style>
     /* Shape Legend Bar */
     .legend-bar {
@@ -137,12 +137,6 @@
     <h1>NRCS Conservation Field Guide</h1>
     <p>Interactive Practice Flowcharts &amp; FY 2027 CAPP / Payment Scenarios</p>
   </header>
-
-  <nav class="tab-bar">
-    <button id="tab-flow" class="tab-btn active" type="button" onclick="switchView('flow')">🔀 Flowcharts</button>
-    <button id="tab-scenarios" class="tab-btn" type="button" onclick="switchView('scenarios')">📋 FY27 Scenarios</button>
-  </nav>
-
   <!-- VIEW 1: INTERACTIVE DECISION FLOWCHARTS -->
   <main id="view-flow" class="view active">
     <div id="practice-selector" class="card-grid"></div>
@@ -151,7 +145,7 @@
       <div class="flow-header">
         <button class="back-btn" type="button" onclick="resetFlow()">← All Practices</button>
         <div class="flow-controls">
-          <button id="btn-undo" class="secondary-btn" type="button" onclick="undoStep()" disabled>Undo</button>
+          <button id="btn-undo" class="secondary-btn" type="button" onclick="undoStep()" disabled>← Back</button>
           <button class="secondary-btn" type="button" onclick="restartCurrentPractice()">Restart</button>
         </div>
       </div>
@@ -170,41 +164,10 @@
       </div>
     </div>
   </main>
-
-  <!-- VIEW 2: SEARCHABLE SCENARIOS & FILTER -->
-  <main id="view-scenarios" class="view hidden">
-    <div class="filter-bar">
-      <input type="text" id="scenario-search" placeholder="Search scenarios, CAPP codes (00N, 01N, CRP), keywords..." oninput="filterScenarios()">
-      <select id="practice-filter" onchange="filterScenarios()">
-        <option value="ALL">All CPS Codes</option>
-        <option value="390">390 - Riparian Herbaceous Cover</option>
-        <option value="420">420 - Wildlife Habitat Planting</option>
-        <option value="422">422 - Hedgerow Planting</option>
-        <option value="643">643 - Restoration of Rare/Declining Communities</option>
-        <option value="645">645 - Wildlife Habitat Management</option>
-        <option value="646">646 - Seasonal Water Management for Wildlife</option>
-        <option value="647">647 - Early Successional Habitat Dev-Mgmt</option>
-        <option value="649">649 - Structures for Wildlife</option>
-        <option value="657">657 - Wetland Restoration</option>
-        <option value="658">658 - Wetland Creation</option>
-        <option value="659">659 - Wetland Enhancement</option>
-      </select>
-      <select id="category-filter" onchange="filterScenarios()">
-        <option value="ALL">All Resource Categories</option>
-        <option value="Wildlife / Habitat">Wildlife / Habitat</option>
-        <option value="Water Quality / Hydrology">Water Quality / Hydrology</option>
-        <option value="Erosion / Stabilization">Erosion / Stabilization</option>
-        <option value="Air Quality / Drift">Air Quality / Drift</option>
-      </select>
-    </div>
-
-    <div id="scenario-count" class="count-label"></div>
-    <div id="scenario-list" class="scenario-grid"></div>
-  </main>
-  <script src="data-flowcharts.js?v=205"></script>
-  <script src="data-scenarios.js?v=205"></script>
-  <script src="rates-config.js?v=205"></script>
-  <script src="app.js?v=205"></script>
+  <script src="data-flowcharts.js?v=206"></script>
+  <script src="data-scenarios.js?v=206"></script>
+  <script src="rates-config.js?v=206"></script>
+  <script src="app.js?v=206"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
