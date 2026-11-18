@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#14532d">
   <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
   <title>NRCS Biology Practice TA-FA Flowchart &amp; FY27 Scenarios</title>
-  <link rel="stylesheet" href="styles.css?v=213">
+  <link rel="stylesheet" href="styles.css?v=214">
     <style>
     /* Shape Legend Bar */
     .legend-bar {
@@ -140,9 +140,15 @@
   </header>
   <!-- VIEW 1: INTERACTIVE DECISION FLOWCHARTS -->
   <main id="view-flow" class="view active">
+    <div id="state-selector-bar" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; background:#ffffff; border:1px solid #d1d5db; border-left:5px solid #14532d; border-radius:8px; padding:10px 14px; margin-bottom:12px;">
+      <div>
+        <strong style="font-size:0.9rem; color:#111827;">State Schedule Profile:</strong>
+        <span id="state-profile-status" style="font-size:0.82rem; color:#4b5563; margin-left:4px;">National Baseline (All Scenarios Open)</span>
+      </div>
+      <select id="state-select" onchange="changeStateProfile(this.value)" style="padding:6px 10px; border:1px solid #9ca3af; border-radius:6px; font-size:0.88rem; font-weight:600; background:#f9fafb; cursor:pointer;"></select>
+    </div>
     <div id="habitat-filter-bar" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;"></div>
     <div id="practice-selector" class="card-grid"></div>
-
     <div id="flow-container" class="hidden">
       <div class="flow-header">
         <button class="back-btn" type="button" onclick="resetFlow()">← All Practices</button>
@@ -166,10 +172,10 @@
       </div>
     </div>
   </main>
-  <script src="data-flowcharts.js?v=213"></script>
-  <script src="data-scenarios.js?v=213"></script>
-  <script src="rates-config.js?v=213"></script>
-  <script src="app.js?v=213"></script>
+  <script src="data-flowcharts.js?v=214"></script>
+  <script src="data-scenarios.js?v=214"></script>
+  <script src="rates-config.js?v=214"></script>
+  <script src="app.js?v=214"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
