@@ -241,7 +241,6 @@ function copyPlanSummary() {
     prompt("Copy your conservation plan summary below (Ctrl+C):", textOutput);
   }
 }
-
 function renderCurrentNode() {
   var practice = PRACTICES[currentPracticeCode];
   var node = practice.nodes[currentNodeId];
@@ -259,87 +258,112 @@ function renderCurrentNode() {
 
   var actionButtonsHtml =
     '<div class="no-print-actions" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;">' +
-'🖨 Print Plan Summary' +
-'📋 Copy Plan Summary' +
-'';
-if (node.type === "gate") {
-var gateOpts = node.options.map(function (opt) {
-var safeLabel = opt.label.replace(/'/g, "\'");
-return '' + opt.label + '';
-}).join("");
-qEl.innerHTML =
-'' +
-'◆ PRE-CONDITION GATE' +
-'' + node.title + '' +
-'' + node.text + '' +
-'' + gateOpts + '' +
-'';
-} else if (node.type === "stop") {
-qEl.innerHTML =
-'' +
-'🛑 STOP / ALTERNATE CPS' +
-'' + node.title + '' +
-'' + node.text + '' +
-'Recommended Action: ' + node.action + '' +
-actionButtonsHtml +
-'';
-} else if (node.type === "question") {
-var qOpts = node.options.map(function (opt) {
-var safeLabel = opt.label.replace(/'/g, "\'");
-return '' + opt.label + '';
-}).join("");
-qEl.innerHTML =
-'' +
-'💠 DECISION / CAPP CRITERIA' +
-'' + node.title + '' +
-'' + node.text + '' +
-'' + qOpts + '' +
-'';
-} else if (node.type === "result") {
-var supportingHtml = "";
-if (practice.supportingPractices) {
-var checklistItems = Object.keys(practice.supportingPractices)
-.map(function (groupName) {
-var safeVal = groupName.replace(/"/g, """);
-return (
-'' +
-'' +
-'Secondary ' + groupName + ' concerns on site?' +
-''
-);
-})
-.join("");
-supportingHtml =
-'' +
-'' +
-'🔵 Secondary Resource Concerns & Supporting Practices (Check all that apply)' +
-'Select any secondary site issues that CPS ' + practice.code + ' alone cannot resolve:' +
-checklistItems +
-'' +
-'' +
-'No secondary resource concerns selected. Primary practice alone is sufficient.' +
-'' +
-'';
-}
-var techSpecHtml = node.techSpec
-? '📐 ' + node.techSpec + ''
-: '';
-var stateNoteHtml = node.stateNote
-? '📌 ' + node.stateNote + ''
-: '';
-var omHtml = node.om
-? 'Operation & Maintenance (O&M): ' + node.om + ''
-: '';
-qEl.innerHTML =
-'' +
-'✅ RECOMMENDED PAYMENT SCENARIO' +
-'' + node.title + '' +
-'Criteria: ' + node.criteria + '' +
-techSpecHtml +
-stateNoteHtml +
-supportingHtml +
-omHtml +
-actionButtonsHtml +
-'';
-}
+      '<button class="print-btn" type="button" onclick="window.print()" style="margin-top:0; padding:10px 18px; background-color:#14532d; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128424; Print Plan Summary</button>' +
+      '<button id="copy-summary-btn" class="print-btn" type="button" onclick="copyPlanSummary()" style="margin-top:0; padding:10px 18px; background-color:#1e3a8a; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128203; Copy Plan Summary</button>' +
+    '</div>';
+
+  if (node.type === "gate") {
+    qEl.innerHTML =
+      '<div class="node-card node-gate">' +
+        '<span class="badge-black-diamond">&#9670; PRE-CONDITION GATE</span>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
+        '<p>' + node.text + '</p>' +
+        '<div id="node-options-container" class="option-list"></div>' +
+      '</div>';
+
+    var gateContainer = document.getElementById("node-options-container");
+    node.options.forEach(function (opt) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option-btn";
+      btn.textContent = opt.label;
+      btn.onclick = function () { selectOption(opt.label, opt.next); };
+      gateContainer.appendChild(btn);
+    });
+  } else if (node.type === "stop") {
+    qEl.innerHTML =
+      '<div class="node-card node-stop">' +
+        '<span class="badge-red-hexagon">&#128721; STOP / ALTERNATE CPS</span>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
+        '<p>' + node.text + '</p>' +
+        '<div class="action-box">Recommended Action: ' + node.action + '</div>' +
+        actionButtonsHtml +
+      '</div>';
+  } else if (node.type === "question") {
+    qEl.innerHTML =
+      '<div class="node-card node-question">' +
+        '<span class="badge-yellow-diamond">&#128160; DECISION / CAPP CRITERIA</span>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
+        '<p>' + node.text + '</p>' +
+        '<div id="node-options-container" class="option-list"></div>' +
+      '</div>';
+
+    var qContainer = document.getElementById("node-options-container");
+    node.options.forEach(function (opt) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option-btn";
+      btn.textContent = opt.label;
+      btn.onclick = function () { selectOption(opt.label, opt.next); };
+      qContainer.appendChild(btn);
+    });
+  } else if (node.type === "result") {
+    var supportingHtml = "";
+    if (practice.supportingPractices) {
+      supportingHtml =
+        '<div class="supporting-box" style="border: 2px solid #0284c7; background: #f0f9ff; margin-top:12px;">' +
+          '<div id="supporting-checklist-controls">' +
+            '<h4 style="color:#0369a1; margin-bottom:6px;">&#128309; Secondary Resource Concerns &amp; Supporting Practices (Check all that apply)</h4>' +
+            '<p style="font-size:0.82rem; color:#334155; margin-bottom:8px;">Select any secondary site issues that CPS ' + practice.code + ' alone cannot resolve:</p>' +
+            '<div id="supporting-checkbox-list"></div>' +
+          '</div>' +
+          '<div id="selected-supporting-output" style="margin-top:8px; font-size:0.86rem;">' +
+            '<em style="color:#4b5563;">No secondary resource concerns selected. Primary practice alone is sufficient.</em>' +
+          '</div>' +
+        '</div>';
+    }
+
+    var techSpecHtml = node.techSpec
+      ? '<div style="margin-top:10px; padding:10px 12px; background:#f3e8ff; border-left:4px solid #7e22ce; border-radius:4px; font-size:0.88rem; color:#581c87;"><strong>&#128208; ' + node.techSpec + '</strong></div>'
+      : '';
+
+    var stateNoteHtml = node.stateNote
+      ? '<div style="margin-top:10px; padding:10px 12px; background:#fefce8; border-left:4px solid #ca8a04; border-radius:4px; font-size:0.88rem; color:#854d0e;"><strong>&#128204; ' + node.stateNote + '</strong></div>'
+      : '';
+
+    var omHtml = node.om
+      ? '<div class="om-box" style="margin-top:14px;"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ' + node.om + '</div>'
+      : '';
+
+    qEl.innerHTML =
+      '<div class="node-card node-result">' +
+        '<span class="badge-green-result">&#9989; RECOMMENDED PAYMENT SCENARIO</span>' +
+        '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
+        '<p><strong>Criteria:</strong> ' + node.criteria + '</p>' +
+        techSpecHtml +
+        stateNoteHtml +
+        supportingHtml +
+        omHtml +
+        actionButtonsHtml +
+      '</div>';
+
+    if (practice.supportingPractices) {
+      var cbList = document.getElementById("supporting-checkbox-list");
+      Object.keys(practice.supportingPractices).forEach(function (groupName) {
+        var lbl = document.createElement("label");
+        lbl.style.cssText = "display:flex; align-items:flex-start; gap:8px; margin-bottom:6px; cursor:pointer; font-weight:500;";
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.className = "rc-support-checkbox";
+        cb.value = groupName;
+        cb.style.cssText = "margin-top:4px; transform:scale(1.15);";
+        cb.onchange = updateSupportingChecklist;
+        var span = document.createElement("span");
+        span.innerHTML = "Secondary <strong>" + groupName + "</strong> concerns on site?";
+        lbl.appendChild(cb);
+        lbl.appendChild(span);
+        cbList.appendChild(lbl);
+      });
+    }
+  }
 }
