@@ -1,5 +1,5 @@
 // sw.js — Offline Field Cache for NRCS Conservation Field Guide
-var CACHE_NAME = "nrcs-field-guide-v218";
+var CACHE_NAME = "nrcs-field-guide-v219";
 var ASSETS = [
   "./",
   "./index.html",
@@ -32,6 +32,7 @@ self.addEventListener("activate", function (event) {
 });
 
 self.addEventListener("fetch", function (event) {
+  if (event.request.url.indexOf("sw.js") !== -1) return;
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
