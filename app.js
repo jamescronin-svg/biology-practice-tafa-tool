@@ -22,14 +22,22 @@ function renderHabitatFilterBar() {
   var bar = document.getElementById("habitat-filter-bar");
   if (!bar || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.habitatSystems) return;
 
+  bar.innerHTML = "";
   var systems = FISCAL_YEAR_CONFIG.habitatSystems;
-  bar.innerHTML = Object.keys(systems).map(function (key) {
+
+  Object.keys(systems).forEach(function (key) {
     var isActive = activeHabitatFilter === key;
-    var btnStyle = isActive
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = systems[key].label;
+    btn.style.cssText = isActive
       ? "padding:7px 12px; border-radius:20px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.82rem; font-weight:700; cursor:pointer;"
       : "padding:7px 12px; border-radius:20px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.82rem; font-weight:600; cursor:pointer;";
-    return '<button type="button" data-key="' + key + '" style="' + btnStyle + '" onclick="setHabitatFilter(this.getAttribute(\'data-key\'))">' + systems[key].label + '</button>';
-  }).join("");
+    btn.onclick = function () {
+      setHabitatFilter(key);
+    };
+    bar.appendChild(btn);
+  });
 }
 function setHabitatFilter(key) {
   activeHabitatFilter = key;
