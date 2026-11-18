@@ -94,6 +94,12 @@ function changeStateProfile(code, skipRender) {
   }
 }
 
+function setHabitatFilter(key) {
+  activeHabitatFilter = key;
+  renderHabitatFilterBar();
+  renderPracticeCards();
+}
+
 function renderHabitatFilterBar() {
   var bar = document.getElementById("habitat-filter-bar");
   if (!bar || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.habitatSystems) return;
@@ -107,19 +113,13 @@ function renderHabitatFilterBar() {
     btn.type = "button";
     btn.textContent = systems[key].label;
     btn.style.cssText = isActive
-      ? "flex:1 0 auto; white-space:nowrap; padding:7px 11px; border-radius:20px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.8rem; font-weight:700; cursor:pointer;"
-      : "flex:1 0 auto; white-space:nowrap; padding:7px 11px; border-radius:20px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.8rem; font-weight:600; cursor:pointer;";
+      ? "width:100%; padding:8px 8px; border-radius:8px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.78rem; font-weight:700; cursor:pointer; text-align:center;"
+      : "width:100%; padding:8px 8px; border-radius:8px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.78rem; font-weight:600; cursor:pointer; text-align:center;";
     btn.onclick = function () {
       setHabitatFilter(key);
     };
     bar.appendChild(btn);
   });
-}
-
-function setHabitatFilter(key) {
-  activeHabitatFilter = key;
-  renderHabitatFilterBar();
-  renderPracticeCards();
 }
 
 function renderPracticeCards() {
