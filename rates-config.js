@@ -1,5 +1,6 @@
 // rates-config.js — National Baseline + State-Specific Payment Rate, Scenario Toggle & Guardrail Profiles
 var FISCAL_YEAR_CONFIG = {
+  adminPin: "2027",
   defaultState: "NATIONAL",
   fiscalYearLabel: "FY 2027",
 
@@ -11,7 +12,6 @@ var FISCAL_YEAR_CONFIG = {
     "STRUCTURES": { label: "🦉 Wildlife Structures & Passage", codes: ["649", "643", "645"] }
   },
 
-  // National baseline notes applied across all states unless overridden by a state profile
   nationalOverrides: {
     "420_1": { stateNote: "Guidance Note: Verify state payment schedule availability for seedlings/potted stock and planting equipment." },
     "420_3": { stateNote: "Guidance Note: Verify state payment schedule availability for herbaceous plugs and planting equipment." },
@@ -22,7 +22,6 @@ var FISCAL_YEAR_CONFIG = {
     "420_10": { stateNote: "Guidance Note: Check state payment schedule for maximum acreage caps per field on Specialized Habitat plantings." }
   },
 
-  // State-specific profiles (Add any state abbreviation below to customize scenarios, caps & guardrails)
   stateProfiles: {
     "NATIONAL": {
       label: "National Baseline (All Scenarios Open)",
@@ -68,25 +67,34 @@ var FISCAL_YEAR_CONFIG = {
 };
 
 var BASE_PRACTICES_CLONE = null;
+var BASE_SCENARIOS_CLONE = null;
 
 function applyStateProfile(stateCode) {
   if (typeof PRACTICES === "undefined" || typeof FISCAL_YEAR_CONFIG === "undefined") return;
 
-  // Save pristine deep copy of PRACTICES on first run so switching states restores pruned branches
   if (!BASE_PRACTICES_CLONE) {
     BASE_PRACTICES_CLONE = JSON.parse(JSON.stringify(PRACTICES));
   }
+  if (!BASE_SCENARIOS_CLONE && typeof SCENARIOS !== "undefined") {
+    BASE_SCENARIOS_CLONE = JSON.parse(JSON.stringify(SCENARIOS));
+  }
 
-  // Restore clean baseline PRACTICES
-  var fresh = JSON.parse(JSON.stringify(BASE_PRACTICES_CLONE));
+  // Restore pristine baseline PRACTICES
+  var freshPractices = JSON.parse(JSON.stringify(BASE_PRACTICES_CLONE));
   Object.keys(PRACTICES).forEach(function (k) { delete PRACTICES[k]; });
-  Object.keys(fresh).forEach(function (k) { PRACTICES[k] = fresh[k]; });
+  Object.keys(freshPractices).forEach(function (k) { PRACTICES[k] = freshPractices[k]; });
+
+  // Restore pristine baseline SCENARIOS
+  if (typeof SCENARIOS !== "undefined" && BASE_SCENARIOS_CLONE) {
+    var freshScenarios = JSON.parse(JSON.stringify(BASE_SCENARIOS_CLONE));
+    SCENARIOS.length = 0;
+    freshScenarios.forEach(function (item) { SCENARIOS.push(item); });
+  }
 
   var profile = (FISCAL_YEAR_CONFIG.stateProfiles && FISCAL_YEAR_CONFIG.stateProfiles[stateCode])
     ? FISCAL_YEAR_CONFIG.stateProfiles[stateCode]
     : { overrides: {} };
 
-  // Merge nationalOverrides with selected state overrides
   var mergedOverrides = {};
   var nat = FISCAL_YEAR_CONFIG.nationalOverrides || {};
   Object.keys(nat).forEach(function (id) {
@@ -97,7 +105,26 @@ function applyStateProfile(stateCode) {
     mergedOverrides[id] = Object.assign({}, mergedOverrides[id] || {}, st[id]);
   });
 
-  // Apply overrides & prune disabled branches
+  // Update SCENARIOS array
+  if (typeof SCENARIOS !== "undefined") {
+    for (var i = SCENARIOS.length - 1; i >= 0; i--) {
+      var s = SCENARIOS[i];
+      var patch = mergedOverrides[s.id];
+      if (patch) {
+        if (patch.enabled === false) {
+          SCENARIOS.splice(i, 1);
+          continue;
+        }
+        if (patch.rate) s.rate = patch.rate;
+        if (patch.typicalTotal) s.typicalTotal = patch.typicalTotal;
+        if (patch.capp) s.capp = patch.capp;
+        if (patch.stateNote) s.stateNote = patch.stateNote;
+        if (patch.techSpec) s.techSpec = patch.techSpec;
+      }
+    }
+  }
+
+  // Apply overrides & prune disabled branches in PRACTICES
   Object.values(PRACTICES).forEach(function (practice) {
     var disabledNodes = {};
 
@@ -111,6 +138,18 @@ function applyStateProfile(stateCode) {
         }
         if (patch.stateNote) node.stateNote = patch.stateNote;
         if (patch.techSpec) node.techSpec = patch.techSpec;
+
+        var matchedScenario = (typeof SCENARIOS !== "undefined")
+          ? SCENARIOS.find(function (sc) { return sc.id === node.scenarioId; })
+          : null;
+        if (matchedScenario && (patch.rate || patch.typicalTotal)) {
+          var unitShort = matchedScenario.unit.toLowerCase();
+          var rateVal = patch.rate || matchedScenario.rate;
+          var totVal = patch.typicalTotal || matchedScenario.typicalTotal;
+          node.title = "Scenario " + matchedScenario.scenarioNum + " \u2014 " + matchedScenario.name +
+            " (" + rateVal + "/" + unitShort +
+            (totVal && totVal !== "N/A" ? " | Typ. " + matchedScenario.typicalSize + " = " + totVal : "") + ")";
+        }
       }
     });
 
