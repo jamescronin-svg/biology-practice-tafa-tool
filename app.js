@@ -33,11 +33,12 @@ function changeStateProfile(code) {
     renderPracticeCards();
   }
 }
-// app.js — Complete Interactive Flowchart, Habitat System Filter, State Guardrails & Copy/Print Controller
+// app.js — National/State Profile Selector, Single-Row Habitat Filter, Admin Panel & Flowchart Controller
 var currentPracticeCode = null;
 var currentNodeId = null;
 var stepHistory = [];
 var activeHabitatFilter = "ALL";
+var activeStateCode = localStorage.getItem("nrcs_selected_state") || "NATIONAL";
 
 document.addEventListener("DOMContentLoaded", function () {
   if (typeof PRACTICES === "undefined") {
@@ -47,12 +48,52 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return;
   }
-  if (typeof applyAnnualOverrides === "function") {
-    applyAnnualOverrides();
-  }
+  initStateSelector();
   renderHabitatFilterBar();
   renderPracticeCards();
 });
+
+function initStateSelector() {
+  var fySub = document.getElementById("header-fy-subtitle");
+  if (fySub && typeof FISCAL_YEAR_CONFIG !== "undefined" && FISCAL_YEAR_CONFIG.fiscalYearLabel) {
+    fySub.textContent = FISCAL_YEAR_CONFIG.fiscalYearLabel;
+  }
+
+  var selectEl = document.getElementById("state-select");
+  if (!selectEl || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.stateProfiles) return;
+
+  var profiles = FISCAL_YEAR_CONFIG.stateProfiles;
+  selectEl.innerHTML = "";
+  Object.keys(profiles).forEach(function (code) {
+    var opt = document.createElement("option");
+    opt.value = code;
+    opt.textContent = profiles[code].label;
+    if (code === activeStateCode) opt.selected = true;
+    selectEl.appendChild(opt);
+  });
+
+  changeStateProfile(activeStateCode, true);
+}
+
+function changeStateProfile(code, skipRender) {
+  activeStateCode = code;
+  localStorage.setItem("nrcs_selected_state", code);
+  if (typeof applyStateProfile === "function") {
+    applyStateProfile(code);
+  }
+  var statusEl = document.getElementById("state-profile-status");
+  if (statusEl && FISCAL_YEAR_CONFIG.stateProfiles[code]) {
+    statusEl.textContent = FISCAL_YEAR_CONFIG.stateProfiles[code].label;
+  }
+  if (!skipRender) {
+    if (currentPracticeCode) {
+      startPractice(currentPracticeCode);
+    } else {
+      renderPracticeCards();
+    }
+  }
+}
+
 function renderHabitatFilterBar() {
   var bar = document.getElementById("habitat-filter-bar");
   if (!bar || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.habitatSystems) return;
@@ -66,14 +107,15 @@ function renderHabitatFilterBar() {
     btn.type = "button";
     btn.textContent = systems[key].label;
     btn.style.cssText = isActive
-      ? "padding:7px 12px; border-radius:20px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.82rem; font-weight:700; cursor:pointer;"
-      : "padding:7px 12px; border-radius:20px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.82rem; font-weight:600; cursor:pointer;";
+      ? "flex:1 0 auto; white-space:nowrap; padding:7px 11px; border-radius:20px; border:2px solid #14532d; background:#14532d; color:#ffffff; font-size:0.8rem; font-weight:700; cursor:pointer;"
+      : "flex:1 0 auto; white-space:nowrap; padding:7px 11px; border-radius:20px; border:1px solid #9ca3af; background:#ffffff; color:#1f2937; font-size:0.8rem; font-weight:600; cursor:pointer;";
     btn.onclick = function () {
       setHabitatFilter(key);
     };
     bar.appendChild(btn);
   });
 }
+
 function setHabitatFilter(key) {
   activeHabitatFilter = key;
   renderHabitatFilterBar();
@@ -402,3 +444,131 @@ function renderCurrentNode() {
     }
   }
 }
+// ==========================================
+// PIN-PROTECTED ADMINISTRATOR PANEL LOGIC
+// ==========================================
+function openAdminModal() {
+  var modal = document.getElementById("admin-modal");
+  if (!modal) return;
+  modal.classList.remove("hidden");
+  document.getElementById("admin-pin-input").value = "";
+  document.getElementById("admin-pin-error").textContent = "";
+}
+
+function closeAdminModal() {
+  var modal = document.getElementById("admin-modal");
+  if (modal) modal.classList.add("hidden");
+}
+
+function verifyAdminPin() {
+  var entered = document.getElementById("admin-pin-input").value.trim();
+  var expected = (typeof FISCAL_YEAR_CONFIG !== "undefined" && FISCAL_YEAR_CONFIG.adminPin) ? FISCAL_YEAR_CONFIG.adminPin : "2027";
+  if (entered !== expected) {
+    document.getElementById("admin-pin-error").textContent = "Incorrect PIN. Please try again.";
+    return;
+  }
+  document.getElementById("admin-pin-gate").classList.add("hidden");
+  document.getElementById("admin-controls").classList.remove("hidden");
+  populateAdminDropdowns();
+}
+
+function populateAdminDropdowns() {
+  document.getElementById("admin-fy-input").value = FISCAL_YEAR_CONFIG.fiscalYearLabel || "FY 2027";
+
+  var stSelect = document.getElementById("admin-state-select");
+  stSelect.innerHTML = "";
+  Object.keys(FISCAL_YEAR_CONFIG.stateProfiles).forEach(function (code) {
+    var opt = document.createElement("option");
+    opt.value = code;
+    opt.textContent = FISCAL_YEAR_CONFIG.stateProfiles[code].label;
+    if (code === activeStateCode) opt.selected = true;
+    stSelect.appendChild(opt);
+  });
+
+  var scSelect = document.getElementById("admin-scenario-select");
+  scSelect.innerHTML = "";
+  var sourceList = BASE_SCENARIOS_CLONE || SCENARIOS || [];
+  sourceList.forEach(function (sc) {
+    var opt = document.createElement("option");
+    opt.value = sc.id;
+    opt.textContent = "CPS " + sc.code + " | Scen " + sc.scenarioNum + " - " + sc.name;
+    scSelect.appendChild(opt);
+  });
+
+  loadAdminScenarioFields();
+}
+
+function loadAdminScenarioFields() {
+  var stateCode = document.getElementById("admin-state-select").value;
+  var scenId = document.getElementById("admin-scenario-select").value;
+  var sourceList = BASE_SCENARIOS_CLONE || SCENARIOS || [];
+  var baseScen = sourceList.find(function (s) { return s.id === scenId; }) || {};
+
+  var profile = FISCAL_YEAR_CONFIG.stateProfiles[stateCode] || { overrides: {} };
+  var patch = (profile.overrides && profile.overrides[scenId]) || {};
+  var natPatch = (FISCAL_YEAR_CONFIG.nationalOverrides && FISCAL_YEAR_CONFIG.nationalOverrides[scenId]) || {};
+
+  document.getElementById("admin-scen-enabled").checked = (patch.enabled !== false);
+  document.getElementById("admin-scen-rate").value = patch.rate || baseScen.rate || "";
+  document.getElementById("admin-scen-total").value = patch.typicalTotal || baseScen.typicalTotal || "";
+  document.getElementById("admin-scen-capp").value = patch.capp || baseScen.capp || "";
+  document.getElementById("admin-scen-techspec").value = patch.techSpec || natPatch.techSpec || "";
+  document.getElementById("admin-scen-statenote").value = patch.stateNote || natPatch.stateNote || "";
+  document.getElementById("admin-save-status").textContent = "";
+}
+
+function applyAdminChangeInBrowser() {
+  var newFy = document.getElementById("admin-fy-input").value.trim();
+  if (newFy) {
+    FISCAL_YEAR_CONFIG.fiscalYearLabel = newFy;
+    var fySub = document.getElementById("header-fy-subtitle");
+    if (fySub) fySub.textContent = newFy;
+  }
+
+  var stateCode = document.getElementById("admin-state-select").value;
+  var scenId = document.getElementById("admin-scenario-select").value;
+  if (!FISCAL_YEAR_CONFIG.stateProfiles[stateCode].overrides) {
+    FISCAL_YEAR_CONFIG.stateProfiles[stateCode].overrides = {};
+  }
+
+  var entry = {};
+  if (!document.getElementById("admin-scen-enabled").checked) {
+    entry.enabled = false;
+  }
+  var r = document.getElementById("admin-scen-rate").value.trim();
+  var t = document.getElementById("admin-scen-total").value.trim();
+  var c = document.getElementById("admin-scen-capp").value.trim();
+  var ts = document.getElementById("admin-scen-techspec").value.trim();
+  var sn = document.getElementById("admin-scen-statenote").value.trim();
+
+  if (r) entry.rate = r;
+  if (t) entry.typicalTotal = t;
+  if (c) entry.capp = c;
+  if (ts) entry.techSpec = ts;
+  if (sn) entry.stateNote = sn;
+
+  FISCAL_YEAR_CONFIG.stateProfiles[stateCode].overrides[scenId] = entry;
+  changeStateProfile(stateCode, false);
+  document.getElementById("admin-save-status").textContent = "Applied to live preview! Click 'Export rates-config.js' to download the updated file for GitHub.";
+}
+
+function downloadUpdatedRatesConfig() {
+  applyAdminChangeInBrowser();
+  var fileContent =
+    "// rates-config.js — Exported from NRCS Biology Practice TA-FA Flowchart Maker Admin Panel\n" +
+    "var FISCAL_YEAR_CONFIG = " + JSON.stringify(FISCAL_YEAR_CONFIG, null, 2) + ";\n\n" +
+    "var BASE_PRACTICES_CLONE = null;\n" +
+    "var BASE_SCENARIOS_CLONE = null;\n\n" +
+    applyStateProfile.toString() + "\n";
+
+  var blob = new Blob([fileContent], { type: "application/javascript" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "rates-config.js";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
