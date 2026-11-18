@@ -1,4 +1,4 @@
-// rates-config.js — National Baseline + State-Specific Payment Rate, Scenario Toggle & Guardrail Profiles
+// rates-config.js — National Baseline + State/Area-Specific Payment Rate, Scenario Toggle & Guardrail Profiles
 var FISCAL_YEAR_CONFIG = {
   adminPin: "2027",
   defaultState: "NATIONAL",
@@ -25,6 +25,66 @@ var FISCAL_YEAR_CONFIG = {
   stateProfiles: {
     "NATIONAL": {
       label: "National Baseline (All Scenarios Open)",
+      overrides: {}
+    },
+    "AL": {
+      label: "Alabama (AL) — National Baseline",
+      overrides: {}
+    },
+    "AK": {
+      label: "Alaska (AK) — National Baseline",
+      overrides: {}
+    },
+    "AZ": {
+      label: "Arizona (AZ) — National Baseline",
+      overrides: {}
+    },
+    "AR": {
+      label: "Arkansas (AR) — National Baseline",
+      overrides: {}
+    },
+    "CA": {
+      label: "California (CA) — National Baseline",
+      overrides: {}
+    },
+    "PR": {
+      label: "Caribbean Area (PR/VI) — National Baseline",
+      overrides: {}
+    },
+    "CO": {
+      label: "Colorado (CO) — National Baseline",
+      overrides: {}
+    },
+    "CT": {
+      label: "Connecticut (CT) — National Baseline",
+      overrides: {}
+    },
+    "DE": {
+      label: "Delaware (DE) — National Baseline",
+      overrides: {}
+    },
+    "FL": {
+      label: "Florida (FL) — National Baseline",
+      overrides: {}
+    },
+    "GA": {
+      label: "Georgia (GA) — National Baseline",
+      overrides: {}
+    },
+    "HI": {
+      label: "Hawaii (HI) — National Baseline",
+      overrides: {}
+    },
+    "ID": {
+      label: "Idaho (ID) — National Baseline",
+      overrides: {}
+    },
+    "IL": {
+      label: "Illinois (IL) — National Baseline",
+      overrides: {}
+    },
+    "IN": {
+      label: "Indiana (IN) — National Baseline",
       overrides: {}
     },
     "IA": {
@@ -62,6 +122,146 @@ var FISCAL_YEAR_CONFIG = {
         "643_11": { enabled: false },
         "643_12": { enabled: false }
       }
+    },
+    "KY": {
+      label: "Kentucky (KY) — National Baseline",
+      overrides: {}
+    },
+    "LA": {
+      label: "Louisiana (LA) — National Baseline",
+      overrides: {}
+    },
+    "ME": {
+      label: "Maine (ME) — National Baseline",
+      overrides: {}
+    },
+    "MD": {
+      label: "Maryland (MD) — National Baseline",
+      overrides: {}
+    },
+    "MA": {
+      label: "Massachusetts (MA) — National Baseline",
+      overrides: {}
+    },
+    "MI": {
+      label: "Michigan (MI) — National Baseline",
+      overrides: {}
+    },
+    "MN": {
+      label: "Minnesota (MN) — National Baseline",
+      overrides: {}
+    },
+    "MS": {
+      label: "Mississippi (MS) — National Baseline",
+      overrides: {}
+    },
+    "MO": {
+      label: "Missouri (MO) — National Baseline",
+      overrides: {}
+    },
+        "MT": {
+      label: "Montana (MT) — National Baseline",
+      overrides: {}
+    },
+    "NE": {
+      label: "Nebraska (NE) — National Baseline",
+      overrides: {}
+    },
+    "NV": {
+      label: "Nevada (NV) — National Baseline",
+      overrides: {}
+    },
+    "NH": {
+      label: "New Hampshire (NH) — National Baseline",
+      overrides: {}
+    },
+    "NJ": {
+      label: "New Jersey (NJ) — National Baseline",
+      overrides: {}
+    },
+    "NM": {
+      label: "New Mexico (NM) — National Baseline",
+      overrides: {}
+    },
+    "NY": {
+      label: "New York (NY) — National Baseline",
+      overrides: {}
+    },
+    "NC": {
+      label: "North Carolina (NC) — National Baseline",
+      overrides: {}
+    },
+    "ND": {
+      label: "North Dakota (ND) — National Baseline",
+      overrides: {}
+    },
+    "OH": {
+      label: "Ohio (OH) — National Baseline",
+      overrides: {}
+    },
+    "OK": {
+      label: "Oklahoma (OK) — National Baseline",
+      overrides: {}
+    },
+    "OR": {
+      label: "Oregon (OR) — National Baseline",
+      overrides: {}
+    },
+    "PIA": {
+      label: "Pacific Islands Area (PIA) — National Baseline",
+      overrides: {}
+    },
+    "PA": {
+      label: "Pennsylvania (PA) — National Baseline",
+      overrides: {}
+    },
+    "RI": {
+      label: "Rhode Island (RI) — National Baseline",
+      overrides: {}
+    },
+    "SC": {
+      label: "South Carolina (SC) — National Baseline",
+      overrides: {}
+    },
+    "SD": {
+      label: "South Dakota (SD) — National Baseline",
+      overrides: {}
+    },
+    "TN": {
+      label: "Tennessee (TN) — National Baseline",
+      overrides: {}
+    },
+    "TX": {
+      label: "Texas (TX) — National Baseline",
+      overrides: {}
+    },
+    "UT": {
+      label: "Utah (UT) — National Baseline",
+      overrides: {}
+    },
+    "VT": {
+      label: "Vermont (VT) — National Baseline",
+      overrides: {}
+    },
+    "VA": {
+      label: "Virginia (VA) — National Baseline",
+      overrides: {}
+    },
+    "WA": {
+      label: "Washington (WA) — National Baseline",
+      overrides: {}
+    },
+    "WV": {
+      label: "West Virginia (WV) — National Baseline",
+      overrides: {}
+    },
+    "WI": {
+      label: "Wisconsin (WI) — National Baseline",
+      overrides: {}
+    },
+    "WY": {
+      label: "Wyoming (WY) — National Baseline",
+      overrides: {}
     }
   }
 };
@@ -172,3 +372,4 @@ function applyStateProfile(stateCode) {
     }
   });
 }
+
