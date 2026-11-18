@@ -1,11 +1,8 @@
-// rates-config.js — Annual Payment Rate, State Scenario Toggle & Technical Guardrails Config
-// Edit ONLY this file each fiscal year (or per state) to toggle scenarios on/off, update rates, or publish technical guardrails!
-
+// rates-config.js — National Baseline + State-Specific Payment Rate, Scenario Toggle & Guardrail Profiles
 var FISCAL_YEAR_CONFIG = {
-  stateCode: "IA",
+  defaultState: "NATIONAL",
   fiscalYearLabel: "FY 2027",
 
-  // Habitat System Quick-Filter Suites (Start from Ecological Goal without extra clicks)
   habitatSystems: {
     "ALL": { label: "All Active CPS (11)", codes: ["390", "420", "422", "643", "645", "646", "647", "649", "657", "658", "659"] },
     "PRAIRIE": { label: "🌾 Tallgrass Prairie & Pollinator", codes: ["420", "645", "647", "422", "649"] },
@@ -14,134 +11,125 @@ var FISCAL_YEAR_CONFIG = {
     "STRUCTURES": { label: "🦉 Wildlife Structures & Passage", codes: ["649", "643", "645"] }
   },
 
-  // Map any scenarioId to:
-  // - enabled: false (completely hides scenario & prunes dead-end branches from flowcharts)
-  // - rate / typicalTotal / capp: annual schedule updates
-  // - techSpec: state biologist technical guardrails (where, when & how to apply)
-  // - stateNote: cost-list / program guidance notes
-  overrides: {
-    // CPS 420 — State Cost-List Caps & Vendor Availability
-    "420_1": {
-      stateNote: "State Cost-List Note: Verify local availability of seedlings/potted stock and planting equipment before contracting."
-    },
-    "420_3": {
-      stateNote: "State Cost-List Note: Verify local availability of herbaceous plugs and specialized planting equipment before contracting."
-    },
-    "420_4": {
-      stateNote: "State Cost-List Note: Check State Payment Schedule for maximum acreage caps on small-scale specialized seeding and plugging."
-    },
-    "420_6": {
-      stateNote: "State Cost-List Note: Check State Payment Schedule for maximum acreage caps per field on High Species Diversity plantings."
-    },
-    "420_7": {
-      stateNote: "State Cost-List Note: Check State Payment Schedule for maximum acreage caps per field on Specialized Habitat plantings."
-    },
-    "420_9": {
-      stateNote: "State Cost-List Note: Check State Payment Schedule for maximum acreage caps per field on High Species Diversity plantings."
-    },
-    "420_10": {
-      stateNote: "State Cost-List Note: Check State Payment Schedule for maximum acreage caps per field on Specialized Habitat plantings."
-    },
+  // National baseline notes applied across all states unless overridden by a state profile
+  nationalOverrides: {
+    "420_1": { stateNote: "Guidance Note: Verify state payment schedule availability for seedlings/potted stock and planting equipment." },
+    "420_3": { stateNote: "Guidance Note: Verify state payment schedule availability for herbaceous plugs and planting equipment." },
+    "420_4": { stateNote: "Guidance Note: Check state payment schedule for maximum acreage caps on small-scale seeding and plugging." },
+    "420_6": { stateNote: "Guidance Note: Check state payment schedule for maximum acreage caps per field on High Species Diversity plantings." },
+    "420_7": { stateNote: "Guidance Note: Check state payment schedule for maximum acreage caps per field on Specialized Habitat plantings." },
+    "420_9": { stateNote: "Guidance Note: Check state payment schedule for maximum acreage caps per field on High Species Diversity plantings." },
+    "420_10": { stateNote: "Guidance Note: Check state payment schedule for maximum acreage caps per field on Specialized Habitat plantings." }
+  },
 
-    // CPS 643 — Rock Structure Technical Guardrails (Comment 2 Remedy)
-    "643_4": {
-      techSpec: "State Technical Guardrail: Apply only in seasonally dry ephemeral gullies or incised headcuts where low-tech rock structures (Zuni bowls, one-rock dams, rock rundowns) are installed in a sequence of 3 to 5 structures to arrest headcutting and reconnect floodplain hydrology."
+  // State-specific profiles (Add any state abbreviation below to customize scenarios, caps & guardrails)
+  stateProfiles: {
+    "NATIONAL": {
+      label: "National Baseline (All Scenarios Open)",
+      overrides: {}
     },
-
-    // CPS 643 — Coastal Oyster Reef Scenarios Disabled for Inland States (Comment 1 Remedy)
-    "643_5": { enabled: false },
-    "643_6": { enabled: false },
-    "643_7": { enabled: false },
-    "643_8": { enabled: false },
-    "643_9": { enabled: false },
-    "643_10": { enabled: false },
-    "643_11": { enabled: false },
-    "643_12": { enabled: false },
-
-    // CPS 646 — Rice-Field Fish Flow Flagged for State Applicability
-    "646_5": {
-      stateNote: "State Cost-List Note: Designed primarily for continuous-flow rice/cropland fish habitat; verify state payment schedule applicability before planning."
+    "IA": {
+      label: "Iowa (IA) — State-Calibrated",
+      overrides: {
+        "643_4": {
+          techSpec: "Iowa Technical Guardrail: Apply only in seasonally dry ephemeral gullies or incised headcuts where low-tech rock structures (Zuni bowls, one-rock dams, rock rundowns) are installed in sequences of 3 to 5 structures."
+        },
+        "643_5": { enabled: false },
+        "643_6": { enabled: false },
+        "643_7": { enabled: false },
+        "643_8": { enabled: false },
+        "643_9": { enabled: false },
+        "643_10": { enabled: false },
+        "643_11": { enabled: false },
+        "643_12": { enabled: false },
+        "646_5": { enabled: false },
+        "649_18": { enabled: false }
+      }
     },
-
-    // CPS 649 — Western Large-Carnivore Electric Mat Flagged
-    "649_18": {
-      stateNote: "State Cost-List Note: Designed primarily for large carnivore (grizzly/wolf) deterrence; verify state eligibility before planning."
+    "KS": {
+      label: "Kansas (KS) — State-Calibrated",
+      overrides: {
+        "420_6": { stateNote: "Kansas Cost-List Rule: High Species Diversity plantings may only be used on a maximum of 5 acres per field." },
+        "420_9": { stateNote: "Kansas Cost-List Rule: High Species Diversity plantings may only be used on a maximum of 5 acres per field." },
+        "643_4": {
+          techSpec: "Kansas Technical Guardrail: Appropriate in drier western/central regions in seasonally dry ephemeral gullies that flow only after rain; install Zuni bowls, one-rock dams, or rock rundowns in sequences of 3 to 5 structures."
+        },
+        "643_5": { enabled: false },
+        "643_6": { enabled: false },
+        "643_7": { enabled: false },
+        "643_8": { enabled: false },
+        "643_9": { enabled: false },
+        "643_10": { enabled: false },
+        "643_11": { enabled: false },
+        "643_12": { enabled: false }
+      }
     }
   }
 };
 
-// Automatically applies overrides, techSpecs, and enabled:false branch pruning on page load
-function applyAnnualOverrides() {
-  if (typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.overrides) return;
-  var overrides = FISCAL_YEAR_CONFIG.overrides;
+var BASE_PRACTICES_CLONE = null;
 
-  // 1. Patch SCENARIOS array
-  if (typeof SCENARIOS !== "undefined") {
-    for (var i = SCENARIOS.length - 1; i >= 0; i--) {
-      var s = SCENARIOS[i];
-      var patch = overrides[s.id];
-      if (patch) {
-        if (patch.enabled === false) {
-          SCENARIOS.splice(i, 1);
-          continue;
-        }
-        if (patch.rate) s.rate = patch.rate;
-        if (patch.typicalTotal) s.typicalTotal = patch.typicalTotal;
-        if (patch.capp) s.capp = patch.capp;
-        if (patch.source) s.source = patch.source;
-        if (patch.stateNote) s.stateNote = patch.stateNote;
-        if (patch.techSpec) s.techSpec = patch.techSpec;
-      }
-    }
+function applyStateProfile(stateCode) {
+  if (typeof PRACTICES === "undefined" || typeof FISCAL_YEAR_CONFIG === "undefined") return;
+
+  // Save pristine deep copy of PRACTICES on first run so switching states restores pruned branches
+  if (!BASE_PRACTICES_CLONE) {
+    BASE_PRACTICES_CLONE = JSON.parse(JSON.stringify(PRACTICES));
   }
 
-  // 2. Patch PRACTICES nodes and prune any branch whose scenarios are all disabled
-  if (typeof PRACTICES !== "undefined") {
-    Object.values(PRACTICES).forEach(function (practice) {
-      var disabledNodes = {};
+  // Restore clean baseline PRACTICES
+  var fresh = JSON.parse(JSON.stringify(BASE_PRACTICES_CLONE));
+  Object.keys(PRACTICES).forEach(function (k) { delete PRACTICES[k]; });
+  Object.keys(fresh).forEach(function (k) { PRACTICES[k] = fresh[k]; });
 
-      // Mark result nodes with enabled: false
+  var profile = (FISCAL_YEAR_CONFIG.stateProfiles && FISCAL_YEAR_CONFIG.stateProfiles[stateCode])
+    ? FISCAL_YEAR_CONFIG.stateProfiles[stateCode]
+    : { overrides: {} };
+
+  // Merge nationalOverrides with selected state overrides
+  var mergedOverrides = {};
+  var nat = FISCAL_YEAR_CONFIG.nationalOverrides || {};
+  Object.keys(nat).forEach(function (id) {
+    mergedOverrides[id] = Object.assign({}, nat[id]);
+  });
+  var st = profile.overrides || {};
+  Object.keys(st).forEach(function (id) {
+    mergedOverrides[id] = Object.assign({}, mergedOverrides[id] || {}, st[id]);
+  });
+
+  // Apply overrides & prune disabled branches
+  Object.values(PRACTICES).forEach(function (practice) {
+    var disabledNodes = {};
+
+    Object.keys(practice.nodes).forEach(function (nodeId) {
+      var node = practice.nodes[nodeId];
+      if (node.type === "result" && node.scenarioId && mergedOverrides[node.scenarioId]) {
+        var patch = mergedOverrides[node.scenarioId];
+        if (patch.enabled === false) {
+          disabledNodes[nodeId] = true;
+          return;
+        }
+        if (patch.stateNote) node.stateNote = patch.stateNote;
+        if (patch.techSpec) node.techSpec = patch.techSpec;
+      }
+    });
+
+    var changed = true;
+    while (changed) {
+      changed = false;
       Object.keys(practice.nodes).forEach(function (nodeId) {
+        if (disabledNodes[nodeId]) return;
         var node = practice.nodes[nodeId];
-        if (node.type === "result" && node.scenarioId && overrides[node.scenarioId]) {
-          var patch = overrides[node.scenarioId];
-          if (patch.enabled === false) {
+        if (node.options && Array.isArray(node.options)) {
+          var beforeLen = node.options.length;
+          node.options = node.options.filter(function (opt) { return !disabledNodes[opt.next]; });
+          if (node.options.length !== beforeLen) changed = true;
+          if (node.options.length === 0) {
             disabledNodes[nodeId] = true;
-            return;
-          }
-          if (patch.stateNote) node.stateNote = patch.stateNote;
-          if (patch.techSpec) node.techSpec = patch.techSpec;
-
-          var matchedScenario = (typeof SCENARIOS !== "undefined")
-            ? SCENARIOS.find(function (sc) { return sc.id === node.scenarioId; })
-            : null;
-          if (matchedScenario && patch.rate) {
-            var unitShort = matchedScenario.unit.toLowerCase();
-            node.title = "Scenario " + matchedScenario.scenarioNum + " \u2014 " + matchedScenario.name +
-              " (" + patch.rate + "/" + unitShort +
-              (patch.typicalTotal && patch.typicalTotal !== "N/A" ? " | Typ. " + matchedScenario.typicalSize + " = " + patch.typicalTotal : "") + ")";
+            changed = true;
           }
         }
       });
-
-      // Iteratively prune options pointing to disabled nodes, and mark empty question nodes disabled
-      var changed = true;
-      while (changed) {
-        changed = false;
-        Object.keys(practice.nodes).forEach(function (nodeId) {
-          if (disabledNodes[nodeId]) return;
-          var node = practice.nodes[nodeId];
-          if (node.options && Array.isArray(node.options)) {
-            var beforeLen = node.options.length;
-            node.options = node.options.filter(function (opt) { return !disabledNodes[opt.next]; });
-            if (node.options.length !== beforeLen) changed = true;
-            if (node.options.length === 0) {
-              disabledNodes[nodeId] = true;
-              changed = true;
-            }
-          }
-        });
-      }
-    });
-  }
+    }
+  });
 }
