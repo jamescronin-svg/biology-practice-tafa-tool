@@ -206,16 +206,16 @@ function renderCurrentNode() {
           return (
             '<label style="display:flex; align-items:flex-start; gap:8px; margin-bottom:6px; cursor:pointer; font-weight:500;">' +
               '<input type="checkbox" class="rc-support-checkbox" value="' + safeVal + '" onchange="updateSupportingChecklist()" style="margin-top:4px; transform:scale(1.15);">' +
-              '<span>Unresolved <strong>' + groupName + '</strong> concerns on site?</span>' +
+              '<span>Secondary <strong>' + groupName + '</strong> concerns on site?</span>' +
             '</label>'
           );
         })
         .join("");
 
       supportingHtml =
-        '<div class="supporting-box" style="border: 2px solid #0284c7; background: #f0f9ff;">' +
+        '<div class="supporting-box" style="border: 2px solid #0284c7; background: #f0f9ff; margin-top:12px;">' +
           '<div id="supporting-checklist-controls">' +
-            '<h4 style="color:#0369a1; margin-bottom:6px;">&#128309; Unresolved Spreadsheet Resource Concerns? (Check all that apply)</h4>' +
+            '<h4 style="color:#0369a1; margin-bottom:6px;">&#128309; Secondary Resource Concerns &amp; Supporting Practices (Check all that apply)</h4>' +
             '<p style="font-size:0.82rem; color:#334155; margin-bottom:8px;">Select any secondary site issues that CPS ' + practice.code + ' alone cannot resolve:</p>' +
             checklistItems +
           '</div>' +
@@ -225,14 +225,20 @@ function renderCurrentNode() {
         '</div>';
     }
 
+    var stateNoteHtml = node.stateNote
+      ? '<div style="margin-top:10px; padding:10px 12px; background:#fefce8; border-left:4px solid #ca8a04; border-radius:4px; font-size:0.88rem; color:#854d0e;"><strong>&#128204; ' + node.stateNote + '</strong></div>'
+      : '';
+
     var omHtml = node.om
       ? '<div class="om-box" style="margin-top:14px;"><strong>Operation &amp; Maintenance (O&amp;M):</strong> ' + node.om + '</div>'
       : '';
+
     qEl.innerHTML =
       '<div class="node-card node-result">' +
         '<span class="badge-green-result">&#9989; RECOMMENDED PAYMENT SCENARIO</span>' +
         '<h3 style="display:block; font-size:1.08rem; font-weight:700; color:#111827; margin:8px 0 6px 0;">' + node.title + '</h3>' +
         '<p><strong>Criteria:</strong> ' + node.criteria + '</p>' +
+        stateNoteHtml +
         supportingHtml +
         omHtml +
         '<button class="print-btn" type="button" onclick="window.print()" style="margin-top:14px; padding:10px 18px; background-color:#14532d; color:#ffffff; border:none; border-radius:6px; font-size:0.95rem; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">&#128424; Print Plan Summary</button>' +
