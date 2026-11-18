@@ -134,7 +134,7 @@
   </style>
 </head>
 <body>
-  <header>
+    <header>
     <h1>NRCS Biology Practice TA-FA Flowchart Maker</h1>
     <p id="header-fy-subtitle">FY 2027</p>
   </header>
@@ -147,7 +147,14 @@
       </div>
       <select id="state-select" onchange="changeStateProfile(this.value)" style="padding:6px 10px; border:1px solid #9ca3af; border-radius:6px; font-size:0.88rem; font-weight:600; background:#f9fafb; cursor:pointer;"></select>
     </div>
-    <div id="habitat-filter-bar" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;"></div>
+    <div id="state-selector-bar" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; background:#ffffff; border:1px solid #d1d5db; border-left:5px solid #14532d; border-radius:8px; padding:10px 14px; margin-bottom:10px;">
+      <div>
+        <strong style="font-size:0.9rem; color:#111827;">State Schedule Profile:</strong>
+        <span id="state-profile-status" style="font-size:0.82rem; color:#4b5563; margin-left:4px;">National Baseline (All Scenarios Open)</span>
+      </div>
+      <select id="state-select" onchange="changeStateProfile(this.value)" style="padding:6px 10px; border:1px solid #9ca3af; border-radius:6px; font-size:0.88rem; font-weight:600; background:#f9fafb; cursor:pointer;"></select>
+    </div>
+    <div id="habitat-filter-bar" style="display:flex; flex-wrap:nowrap; overflow-x:auto; gap:6px; margin-bottom:14px; padding-bottom:4px;"></div>
     <div id="practice-selector" class="card-grid"></div>
     <div id="flow-container" class="hidden">
       <div class="flow-header">
@@ -172,6 +179,97 @@
       </div>
     </div>
   </main>
+    <footer class="no-print-actions" style="max-width:900px; margin:28px auto 0 auto; padding:12px 16px; text-align:right; border-top:1px solid #e5e7eb;">
+    <button type="button" onclick="openAdminModal()" style="padding:6px 12px; font-size:0.8rem; color:#4b5563; background:#ffffff; border:1px solid #d1d5db; border-radius:6px; cursor:pointer;">&#9881;&#65039; Admin</button>
+  </footer>
+
+  <!-- PIN-PROTECTED ADMINISTRATOR MODAL -->
+  <div id="admin-modal" class="hidden no-print-actions" style="position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:100; display:flex; align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#ffffff; max-width:640px; width:100%; max-height:90vh; overflow-y:auto; border-radius:10px; padding:20px; box-shadow:0 10px 25px rgba(0,0,0,0.25);">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e5e7eb; padding-bottom:10px; margin-bottom:14px;">
+        <h2 style="font-size:1.15rem; color:#14532d;">&#9881;&#65039; State &amp; Fiscal Year Administrator</h2>
+        <button type="button" onclick="closeAdminModal()" style="background:none; border:none; font-size:1.25rem; cursor:pointer; color:#6b7280;">&times;</button>
+      </div>
+
+      <!-- PIN Gate -->
+      <div id="admin-pin-gate">
+        <p style="font-size:0.9rem; margin-bottom:10px;">Enter Administrator PIN to edit Fiscal Year banner, Scenario toggles, Rates/CAPP codes, or State Technical Guardrails:</p>
+        <div style="display:flex; gap:8px;">
+          <input type="password" id="admin-pin-input" placeholder="Enter PIN" style="flex:1; padding:8px 10px; border:1px solid #9ca3af; border-radius:6px;">
+          <button type="button" onclick="verifyAdminPin()" style="padding:8px 16px; background:#14532d; color:#ffffff; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Unlock</button>
+        </div>
+        <div id="admin-pin-error" style="color:#b91c1c; font-size:0.84rem; margin-top:6px;"></div>
+      </div>
+
+      <!-- Admin Controls (Hidden until PIN verified) -->
+      <div id="admin-controls" class="hidden">
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px;">Verified Fiscal Year Banner Label (Manual Release Gate):</label>
+          <input type="text" id="admin-fy-input" style="width:100%; padding:8px; border:1px solid #9ca3af; border-radius:6px;">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+          <div>
+            <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px;">Target State Profile:</label>
+            <select id="admin-state-select" onchange="loadAdminScenarioFields()" style="width:100%; padding:8px; border:1px solid #9ca3af; border-radius:6px;"></select>
+          </div>
+          <div>
+            <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px;">Select CPS &amp; Scenario:</label>
+            <select id="admin-scenario-select" onchange="loadAdminScenarioFields()" style="width:100%; padding:8px; border:1px solid #9ca3af; border-radius:6px;"></select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px; padding:10px; background:#f9fafb; border:1px solid #e5e7eb; border-radius:6px;">
+          <label style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.88rem; cursor:pointer;">
+            <input type="checkbox" id="admin-scen-enabled" checked style="transform:scale(1.15);">
+            <span>Scenario Enabled in This State (Uncheck to prune from flowcharts)</span>
+          </label>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px;">
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:3px;">Unit Rate:</label>
+            <input type="text" id="admin-scen-rate" placeholder="$1,026.38" style="width:100%; padding:7px; border:1px solid #9ca3af; border-radius:6px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:3px;">Typical Total:</label>
+            <input type="text" id="admin-scen-total" placeholder="$513.19" style="width:100%; padding:7px; border:1px solid #9ca3af; border-radius:6px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:3px;">CAPP Narrative:</label>
+            <input type="text" id="admin-scen-capp" placeholder="00N / 01N" style="width:100%; padding:7px; border:1px solid #9ca3af; border-radius:6px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px;">State Technical Guardrail (Where, When &amp; How to Apply):</label>
+          <textarea id="admin-scen-techspec" rows="3" placeholder="e.g., Apply only in seasonally dry ephemeral gullies in sequences of 3 to 5 structures..." style="width:100%; padding:8px; border:1px solid #9ca3af; border-radius:6px; font-family:inherit;"></textarea>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px;">State Cost-List / Acreage Cap Note:</label>
+          <textarea id="admin-scen-statenote" rows="2" placeholder="e.g., Maximum 5 acres per field on High Species Diversity plantings..." style="width:100%; padding:8px; border:1px solid #9ca3af; border-radius:6px; font-family:inherit;"></textarea>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;">
+          <button type="button" onclick="applyAdminChangeInBrowser()" style="padding:9px 14px; background:#0284c7; color:#ffffff; border:none; border-radius:6px; font-weight:700; cursor:pointer;">&#9989; Apply &amp; Preview Live</button>
+          <button type="button" onclick="downloadUpdatedRatesConfig()" style="padding:9px 14px; background:#14532d; color:#ffffff; border:none; border-radius:6px; font-weight:700; cursor:pointer;">&#128190; Export rates-config.js</button>
+        </div>
+        <div id="admin-save-status" style="font-size:0.84rem; color:#15803d; font-weight:600; margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data-flowcharts.js?v=215"></script>
+  <script src="data-scenarios.js?v=215"></script>
+  <script src="rates-config.js?v=215"></script>
+  <script src="app.js?v=215"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js");
+    }
+  </script>
+
   <script src="data-flowcharts.js?v=215"></script>
   <script src="data-scenarios.js?v=215"></script>
   <script src="rates-config.js?v=215"></script>
