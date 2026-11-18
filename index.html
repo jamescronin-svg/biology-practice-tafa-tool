@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#14532d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>NRCS Biology Practice TA-FA Flowchart &amp; FY27 Scenarios</title>
-  <link rel="stylesheet" href="styles.css?v=207">
+  <link rel="stylesheet" href="styles.css?v=208">
     <style>
     /* Shape Legend Bar */
     .legend-bar {
@@ -139,6 +139,7 @@
   </header>
   <!-- VIEW 1: INTERACTIVE DECISION FLOWCHARTS -->
   <main id="view-flow" class="view active">
+    <div id="habitat-filter-bar" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;"></div>
     <div id="practice-selector" class="card-grid"></div>
 
     <div id="flow-container" class="hidden">
@@ -164,10 +165,10 @@
       </div>
     </div>
   </main>
-  <script src="data-flowcharts.js?v=207"></script>
-  <script src="data-scenarios.js?v=207"></script>
-  <script src="rates-config.js?v=207"></script>
-  <script src="app.js?v=207"></script>
+  <script src="data-flowcharts.js?v=208"></script>
+  <script src="data-scenarios.js?v=208"></script>
+  <script src="rates-config.js?v=208"></script>
+  <script src="app.js?v=208"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
