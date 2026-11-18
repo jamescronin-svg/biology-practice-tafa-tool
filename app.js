@@ -1,3 +1,38 @@
+var activeStateCode = localStorage.getItem("nrcs_selected_state") || "NATIONAL";
+
+function initStateSelector() {
+  var selectEl = document.getElementById("state-select");
+  if (!selectEl || typeof FISCAL_YEAR_CONFIG === "undefined" || !FISCAL_YEAR_CONFIG.stateProfiles) return;
+
+  var profiles = FISCAL_YEAR_CONFIG.stateProfiles;
+  selectEl.innerHTML = "";
+  Object.keys(profiles).forEach(function (code) {
+    var opt = document.createElement("option");
+    opt.value = code;
+    opt.textContent = profiles[code].label;
+    if (code === activeStateCode) opt.selected = true;
+    selectEl.appendChild(opt);
+  });
+
+  changeStateProfile(activeStateCode);
+}
+
+function changeStateProfile(code) {
+  activeStateCode = code;
+  localStorage.setItem("nrcs_selected_state", code);
+  if (typeof applyStateProfile === "function") {
+    applyStateProfile(code);
+  }
+  var statusEl = document.getElementById("state-profile-status");
+  if (statusEl && FISCAL_YEAR_CONFIG.stateProfiles[code]) {
+    statusEl.textContent = FISCAL_YEAR_CONFIG.stateProfiles[code].label;
+  }
+  if (currentPracticeCode) {
+    startPractice(currentPracticeCode);
+  } else {
+    renderPracticeCards();
+  }
+}
 // app.js — Complete Interactive Flowchart, Habitat System Filter, State Guardrails & Copy/Print Controller
 var currentPracticeCode = null;
 var currentNodeId = null;
